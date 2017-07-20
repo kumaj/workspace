@@ -1,0 +1,25 @@
+/**
+ * This is the custom implementation of the hashMap
+ * @author kumaj04
+ *
+ */
+public class CustomHashMap {
+// Custom hashMap will represent an array of entry objects like an array of emp objects Employee[] emp 
+	
+	
+	static class Entry<K,V>{
+		K key;
+		V value;
+		Entry<K,V> next;
+		
+		public Entry(String key, String value, Entry<K, V> next) {
+			
+		}
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+
+	}
+}

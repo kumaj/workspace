@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.10" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="com.ca.pattern.decorator.WindowDecorator" project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/WindowDecorator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="143" width="162" x="206" y="267"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="com.ca.pattern.decorator.HorizontalScrollBarDecorator" 
+    project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/HorizontalScrollBarDecorator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="149" y="522"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="3" language="java" name="com.ca.pattern.decorator.Window" project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/Window.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="99" width="167" x="388" y="128"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="4" language="java" name="com.ca.pattern.decorator.VerticalScrollBarDecorator" 
+    project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/VerticalScrollBarDecorator.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="149" width="202" x="381" y="455"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="com.ca.pattern.decorator.DecoratedWindowTest" 
+    project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/DecoratedWindowTest.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="90" y="211"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="com.ca.pattern.decorator.SimpleWindow" project="DesignPattern_DecoratorPattern" 
+    file="/DesignPattern_DecoratorPattern/src/com/ca/pattern/decorator/SimpleWindow.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="134" width="164" x="538" y="266"/>    
+    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <realization id="8">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <generalization id="10">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="1"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

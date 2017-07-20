@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;EmployeeExter.address&apos; in &apos;EmployeeExter&apos;&#x0D;&#x0A;- Original project: &apos;Java_Externalization&apos;&#x0D;&#x0A;- Original element: &apos;EmployeeExter.address&apos;&#x0D;&#x0A;- Getter method name: &apos;getAddress&apos;&#x0D;&#x0A;- Setter method name: &apos;setAddress&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type&#x0D;&#x0A;- Generate method comments" comments="true" declaring="true" description="Encapsulate field &apos;address&apos;" flags="589830" getter="getAddress" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;{EmployeeExter.java[EmployeeExter^address" insertion="6" setter="setAddress" stamp="1487263710235" version="1.0" visibility="1"/>
+</session>

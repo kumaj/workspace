@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;Array_Diagonal&apos; to &apos;Array_Diagonal_Print elments diagonally&apos;&#x0D;&#x0A;- Original element: &apos;Array_Diagonal&apos;&#x0D;&#x0A;- Renamed element: &apos;Array_Diagonal&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;Array_Diagonal&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=Array_Diagonal" name="Array_Diagonal_Print elments diagonally" references="true" stamp="1452243282202" version="1.0"/>
+</session>

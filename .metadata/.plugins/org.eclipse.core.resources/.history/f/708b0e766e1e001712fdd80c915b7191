@@ -1,0 +1,22 @@
+import java.util.List;
+
+/**
+ * Saving account
+ * @author kumaj04
+ *
+ */
+public class SavingAccount extends Account {
+
+	@Override
+	void createAccount(CustomerInfo customerInfo, List<CustomerAccount> accountList) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	void closeAccount(String accountNo) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

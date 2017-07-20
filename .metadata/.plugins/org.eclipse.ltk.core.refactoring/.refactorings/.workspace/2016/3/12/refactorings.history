@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;Tree_kthSmallest&apos; to &apos;Tree_kthSmallest_no&apos;&#x0D;&#x0A;- Original element: &apos;Tree_kthSmallest&apos;&#x0D;&#x0A;- Renamed element: &apos;Tree_kthSmallest&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;Tree_kthSmallest&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=Tree_kthSmallest" name="Tree_kthSmallest_no" references="true" stamp="1457846032096" version="1.0"/>
+</session>

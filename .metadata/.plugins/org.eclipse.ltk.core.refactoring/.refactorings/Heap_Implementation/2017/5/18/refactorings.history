@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;HeapTree.inOrderTraversal(...)&apos; to &apos;preOrderTraversal&apos;&#x0D;&#x0A;- Original project: &apos;Heap_Implementation&apos;&#x0D;&#x0A;- Original element: &apos;HeapTree.inOrderTraversal(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;HeapTree.preOrderTraversal(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;inOrderTraversal&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;{HeapTree.java[HeapTree~inOrderTraversal~QTreeNode;" name="preOrderTraversal" references="true" stamp="1493983373779" version="1.0"/>
+</session>

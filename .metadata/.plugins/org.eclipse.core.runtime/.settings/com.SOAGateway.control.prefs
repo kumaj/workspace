@@ -1,0 +1,14 @@
+eclipse.preferences.version=1
+odbcDSN=portusDB02
+splashHookedWithVR=43
+virtColumnLen=2000
+virtExposeBundleId=true
+virtFile=file\:///C\:\\Portus_Stuff\\Test Data for Portus\\books.xml
+virtGenAttr=true
+virtGenTables=true
+virtGenTypes=false
+virtGenViin=true
+virtGenViinInGrp=false
+virtMbSupport=true
+virtServicePrefix=
+virtTrans=false

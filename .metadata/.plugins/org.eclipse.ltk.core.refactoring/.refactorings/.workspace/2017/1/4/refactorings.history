@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;Threading_Deadlock&apos; to &apos;Threading_No_Deadlock&apos;&#x0D;&#x0A;- Original element: &apos;Threading_Deadlock&apos;&#x0D;&#x0A;- Renamed element: &apos;Threading_Deadlock&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;Threading_Deadlock&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=Threading_Deadlock" name="Threading_No_Deadlock" references="true" stamp="1485187733736" version="1.0"/>
+</session>

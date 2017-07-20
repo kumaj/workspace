@@ -1,0 +1,10 @@
+/**
+ * http://www.programcreek.com/2014/05/leetcode-implement-trie-prefix-tree-java/
+ * https://www.topcoder.com/community/data-science/data-science-tutorials/using-tries/
+ * @author kumaj04
+ *
+ */
+public class TrieNode {
+	Character c;
+	
+}

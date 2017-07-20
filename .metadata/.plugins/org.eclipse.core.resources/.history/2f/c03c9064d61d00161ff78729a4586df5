@@ -1,0 +1,34 @@
+import java.util.ArrayList;
+
+
+public class RodCutting {
+	/* Returns the best obtainable price for a rod of length n and
+	   price[] as prices of different pieces */
+	int cutRod(ArrayList<Integer> a)
+	{
+		if(a == null)
+			return 0;
+		int size = a.size();
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		temp.add(a.get(0));
+	   
+	   for (int i = 1; i < size; i++)
+	   {
+	       int max_val = Integer.MIN_VALUE;
+	       for (int j = 0; j < i; j++)
+	         max_val = Math.max(max_val, a.get(j) + a.get(i-j-1));
+	         temp.add(max_val);
+	   }
+	   return temp.get(temp.size() - 1);
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+		ArrayList<Integer> arr = new ArrayList<Integer>();
+		arr.add(1); arr.add(2); arr.add(3);
+		
+		RodCutting r = new RodCutting();
+		System.out.println(r.cutRod(arr));
+	}
+}

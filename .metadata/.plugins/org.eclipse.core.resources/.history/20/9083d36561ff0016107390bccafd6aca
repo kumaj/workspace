@@ -1,0 +1,31 @@
+/**
+ * This is the custom implementation of the hashMap
+ * @author kumaj04
+ *
+ */
+public class CustomHashMap {
+	String name;
+	public CustomHashMap(String name) {
+		this.name = name;
+	}
+	
+/*	@Override
+	public String toString() {
+		return this.name;
+	}*/
+}
+
+class Solution {
+	public static void main(String[] args) {
+		CustomHashMap[] arry = new CustomHashMap[5];
+		arry[0] = new CustomHashMap("Ajit");
+		arry[1] = new CustomHashMap("Kumar");
+		arry[2] = new CustomHashMap("From");
+		arry[3] = new CustomHashMap("Patna");
+		arry[4] = new CustomHashMap("Bihar");
+		
+		for (int i = 0; i < arry.length; i++) {
+			System.out.println(arry[i]);
+		}
+	}
+}

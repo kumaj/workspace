@@ -1,0 +1,7 @@
+1491054075868	Encapsulate field 'name'
+1491054083809	Encapsulate field 'capacity'
+1491054376437	Encapsulate field 'meetingRoom'
+1491054380181	Encapsulate field 'meetingRequest'
+1491054384206	Encapsulate field 'bookingStatus'
+1491066817511	Rename type 'ValidateMeetingRequest'
+1491067283156	Encapsulate field 'bookedSlot'

@@ -1,0 +1,26 @@
+1491570973902	Encapsulate field 'spaceId'
+1491570977505	Encapsulate field 'floorId'
+1491570981464	Encapsulate field 'floorSpaceId'
+1491572234979	Rename local variable 'parkingSlot'
+1491572696085	Encapsulate field 'reservationType'
+1491572699611	Encapsulate field 'vehicleType'
+1491584777192	Encapsulate field 'isParked'
+1491648774418	Copy compilation units
+1491648806611	Delete elements
+1491648814164	Delete element
+1491648857765	Move compilation unit
+1491648975175	Move compilation unit
+1491648988631	Move compilation unit
+1491648992612	Move compilation unit
+1491649029086	Move compilation unit
+1491649033333	Move compilation unit
+1491649060196	Move compilation unit
+1491650650417	Rename field 'parkingSlot'
+1491650667612	Rename local variable 'parkingSlot'
+1491650883782	Rename type 'ParkingReservation'
+1491651172822	Encapsulate field 'reservedParkingSlot'
+1491654508548	Encapsulate field 'parkingTime'
+1491654514008	Encapsulate field 'vehicleNo'
+1491654518345	Encapsulate field 'reservationId'
+1491656304422	Rename method 'removeSlotsFromAvailableList'
+1491657001259	Extract method 'AllotSlotsToVehicle'

@@ -1,0 +1,14 @@
+import java.io.File;
+import java.io.FileReader;
+
+/**
+ * 
+ * @author kumaj04
+ *
+ */
+public class NameTester {
+	
+	public void getName(String fileName) {
+		FileReader freader = new FileReader(new File(pathname));
+	}
+}

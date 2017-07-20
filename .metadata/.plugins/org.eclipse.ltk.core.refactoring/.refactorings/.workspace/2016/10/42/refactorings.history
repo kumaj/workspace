@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;ConstructTree_InAndPreOrder&apos; to &apos;Tree_ConstructTreeFromInAndPreOrder&apos;&#x0D;&#x0A;- Original element: &apos;ConstructTree_InAndPreOrder&apos;&#x0D;&#x0A;- Renamed element: &apos;ConstructTree_InAndPreOrder&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;ConstructTree_InAndPreOrder&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=ConstructTree_InAndPreOrder" name="Tree_ConstructTreeFromInAndPreOrder" references="true" stamp="1476019676119" version="1.0"/>
+</session>

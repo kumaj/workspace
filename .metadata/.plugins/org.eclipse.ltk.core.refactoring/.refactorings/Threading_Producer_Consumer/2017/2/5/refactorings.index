@@ -1,0 +1,5 @@
+1486102836494	Encapsulate field 'arr'
+1486103183671	Rename field 'sdArray'
+1486103194609	Rename local variable 'array'
+1486103322105	Encapsulate field 'obj'
+1486103770317	Encapsulate field 'count'

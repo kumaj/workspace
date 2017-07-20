@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.HashSet;
+
+
+public class ValidSudoku {
+    public boolean isValidSudoku(ArrayList<ArrayList<Character>> a) {
+		
+    	//first check the rows
+    	
+    	//convert the list of list into 2D array first
+    	Character[][] board = new Character[9][9];
+    	int i = 0;
+    	int j = 0;
+    	for(ArrayList<Character> arr : a) {
+    		for(Character ch : arr) {
+    			board[i][j] =  ch;
+    			j++;
+    		}
+    		i++;
+    	}
+    	
+    	HashSet<Integer> h = new HashSet<Integer>();
+    	for(int k =0; k< 9; k++) {
+    		for(int l = 0; l < 9; l++) {
+    			if(!board[k][l].equals(' ')) {
+    				if(rows[])
+    					rows[l] = board[k][l] - '1';
+    			}
+    		}
+    	}
+    	
+    	return false; 
+    }
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

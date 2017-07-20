@@ -1,0 +1,48 @@
+
+/**
+ * Class to denote the branch of a bank
+ * @author kumaj04
+ *
+ */
+public class BankBranch {
+	private String branchCode;
+	private String branchAddress;
+	
+	public BankBranch(String branchCode, String branchAddress) {
+		this.setBranchCode(branchCode);
+		this.setBranchAddress(branchAddress);
+	}
+
+	/**
+	 * @return the branchCode
+	 */
+	public String getBranchCode() {
+		return branchCode;
+	}
+
+	/**
+	 * @param branchCode the branchCode to set
+	 */
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+
+	/**
+	 * @return the branchAddress
+	 */
+	public String getBranchAddress() {
+		return branchAddress;
+	}
+
+	/**
+	 * @param branchAddress the branchAddress to set
+	 */
+	public void setBranchAddress(String branchAddress) {
+		this.branchAddress = branchAddress;
+	}
+	
+    @Override
+    public String toString() {
+        return "Branch [branchCode = " + branchCode + ", branchAddress = " + branchAddress  + "]";
+    }
+}

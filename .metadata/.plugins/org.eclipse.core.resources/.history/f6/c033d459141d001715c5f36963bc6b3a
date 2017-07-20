@@ -1,0 +1,16 @@
+package com.ca.park;
+
+import com.ca.vehicle.VehicleInfo;
+
+/**
+ * Factory class which implements the factory design pattern
+ * which let's the subclasses to create the instance of the parking
+ * @author kumaj04
+ *
+ */
+public class ParkVehicleFactory {
+
+	public ParkVehicle getParkingInstance(VehicleInfo vehicleInfo) {
+		
+	}
+}

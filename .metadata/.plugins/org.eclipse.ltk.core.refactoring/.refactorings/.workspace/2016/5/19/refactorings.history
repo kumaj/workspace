@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;Threading06_accessing an object by 2 methods&apos; to &apos;Threading06_accessing an object by 2 threads&apos;&#x0D;&#x0A;- Original element: &apos;Threading06_accessing an object by 2 methods&apos;&#x0D;&#x0A;- Renamed element: &apos;Threading06_accessing an object by 2 methods&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;Threading06_accessing an object by 2 methods&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=Threading06_accessing an object by 2 methods" name="Threading06_accessing an object by 2 threads" references="true" stamp="1462373400080" version="1.0"/>
+</session>

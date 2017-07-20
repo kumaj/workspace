@@ -1,0 +1,14 @@
+import java.util.List;
+
+
+public class ValidSudoku {
+	public int isValidSudoku(final List<String> a) {
+	
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

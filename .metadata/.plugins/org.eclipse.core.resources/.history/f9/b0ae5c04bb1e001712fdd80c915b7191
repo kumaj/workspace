@@ -1,0 +1,28 @@
+import account.exception.AccountManagerException;
+
+/**
+ * 
+ * @author kumaj04
+ *
+ */
+public class Solution {
+	public static void main(String[] args) throws AccountManagerException {
+		//Call the account manager to create the account.
+		AccountManager accMgr = new AccountManager();
+		//create saving account
+		CustomerInfo customerInfo = new CustomerInfo("Ajit", "",  "Hyderabad", "1111");
+		AccountResponse response = accMgr.createAccount(customerInfo, AccountType.Saving);
+		System.out.println(response);
+		
+		//create joint account
+		CustomerInfo customerInfo2 = new CustomerInfo("Ajit", "",  "Hyderabad", "2222");
+		AccountResponse response2 = accMgr.createAccount(customerInfo2, AccountType.Joint);
+		System.out.println(response2);
+		
+		// create demat account.
+		CustomerInfo customerInfo3 = new CustomerInfo("Ajit", "",  "Hyderabad", "3333");
+		AccountResponse response3 = accMgr.createAccount(customerInfo3, AccountType.Demat);
+		System.out.println(response3);
+		
+	}
+}

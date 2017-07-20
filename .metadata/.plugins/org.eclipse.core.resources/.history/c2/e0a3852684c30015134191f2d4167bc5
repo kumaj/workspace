@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+
+
+public class ValidSudoku {
+    public boolean isValidSudoku(ArrayList<ArrayList<Character>> a) {
+		
+    	//first check the rows
+    	boolean[] rows = new boolean[9]; 
+    	//convert the list of list into 2D array first
+    	int[][] board = new int[9][9];
+    	int i = 0;
+    	int j = 0;
+    	for(ArrayList<Character> arr : a) {
+    		for(Character ch : arr) {
+    			board[i][j] =  ch;
+    			j++;
+    		}
+    		i++;
+    	}
+    	return false; 
+    }
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

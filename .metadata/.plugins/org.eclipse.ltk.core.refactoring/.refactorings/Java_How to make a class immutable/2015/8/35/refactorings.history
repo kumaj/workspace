@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Encapsulate field &apos;Immutable.Immutable.id&apos; in &apos;Immutable.Immutable&apos;&#x0D;&#x0A;- Original project: &apos;Java_How to make a class immutable&apos;&#x0D;&#x0A;- Original element: &apos;Immutable.Immutable.id&apos;&#x0D;&#x0A;- Getter method name: &apos;getId&apos;&#x0D;&#x0A;- Setter method name: &apos;setId&apos;&#x0D;&#x0A;- Field visibility: &apos;(package)&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;id&apos;" flags="589830" getter="getId" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;Immutable{Immutable.java[Immutable^id" insertion="1" setter="setId" stamp="1440695197646" version="1.0" visibility="0"/>
+</session>

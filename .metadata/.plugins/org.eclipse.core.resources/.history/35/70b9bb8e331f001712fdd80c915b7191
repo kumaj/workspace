@@ -1,0 +1,141 @@
+import java.math.BigInteger;
+import java.util.List;
+
+import account.exception.AccountManagerException;
+import account.utility.AccountUtility;
+
+/**
+ * Saving account
+ * @author kumaj04
+ *
+ */
+public class SavingAccount extends Account {
+
+	public SavingAccount(String accountNo, String accountName, String accountAddress, double interestRate, String branchName, AccountType accountType) {
+		super(accountNo, accountName, accountAddress, interestRate, branchName, accountType);
+	}
+
+	@Override
+	/**
+	 * Method to create the account for the customer.
+	 */
+	AccountResponse createAccount(CustomerInfo customerInfo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		//Let's come and create the account and add into the list
+		validateCustomerInformation(customerInfo);
+		
+		checkCustomerExistence(customerInfo, accountList);
+		
+		String accountNo = initiateAccountCreation(customerInfo, accountList);
+		
+		response = getResponse(accountNo);
+
+		return response;
+
+	}
+
+	/**
+	 * Method to get the response after account creation is done.
+	 * @param accountNo
+	 * @return
+	 */
+	private AccountResponse getResponse(String accountNo) {
+		AccountResponse response;
+		response = new AccountResponse();
+		response.setAccountNo(accountNo);
+		response.setComment("Account has been created successfully.");
+		response.setJobName("Account created");
+		response.setJobStatus("Success");
+		return response;
+	}
+
+	/** 
+	 * Method to generate the new account no and create the account
+	 * @param customerInfo
+	 * @param accountList
+	 * @return
+	 */
+	private String initiateAccountCreation(CustomerInfo customerInfo,
+			List<CustomerAccount> accountList) {
+		//Once you validate the user info and get sure that this is a new customer, generate a random 5 digit numeric no having the prefix of bank name and bankcode "BOBWALMI12345" 
+		AccountUtility util = new AccountUtility();
+		BigInteger accNo = util.getNextAccountNo();
+		String accountNo = "BOB" + "_WAlMI_" + accNo.toString();
+		
+		CustomerAccount customerAccount = new CustomerAccount();
+		Account savingAcc = new SavingAccount(accountNo, customerInfo.getName(), customerInfo.getAddress(), 7.0, "WALMI", AccountType.Saving);
+		savingAcc.setAccountNo(accountNo);
+		savingAcc.setAccountAddress(customerInfo.getAddress());
+		savingAcc.setAccountName(customerInfo.getName());
+		savingAcc.setBranchName("WAlMI");
+		savingAcc.setInterestRate(7.0);
+		customerAccount.setAccount(savingAcc);
+		customerAccount.setCustomerInfo(customerInfo);
+		accountList.add(customerAccount);
+		return accountNo;
+	}
+
+	/** 
+	 * Method to check if the customer has an existing account.
+	 * @param customerInfo
+	 * @param accountList
+	 * @throws AccountManagerException
+	 */
+	private void checkCustomerExistence(CustomerInfo customerInfo,
+			List<CustomerAccount> accountList) throws AccountManagerException {
+		//First check if the customer already exist.. 
+		for (CustomerAccount customerAccount : accountList) {
+			if(customerInfo.getIdProofNo().endsWith(customerAccount.getCustomerInfo().getIdProofNo()))
+				throw new AccountManagerException(customerAccount.getCustomerInfo().getName() + " already exist. So can't create the new account." );
+		}
+	}
+
+	/**
+	 * Method to validate customer info
+	 * @param customerInfo
+	 * @throws AccountManagerException
+	 */
+	private void validateCustomerInformation(CustomerInfo customerInfo)
+			throws AccountManagerException {
+		// First get the manadatory fields which are required to create the account no.
+		if(customerInfo == null)
+			throw new AccountManagerException("Customer info is null");
+		if(customerInfo.getName() == null || customerInfo.getName().isEmpty())
+			throw new AccountManagerException("Name is missing in customer info");
+		if(customerInfo.getAddress() == null || customerInfo.getAddress().isEmpty())
+			throw new AccountManagerException("Address is missing in customer info");
+		if(customerInfo.getIdProofNo() == null || customerInfo.getIdProofNo().isEmpty())
+			throw new AccountManagerException("Id Proof is missing in customer info");
+	}
+
+	@Override
+	/**
+	 * Method to close the account.
+	 */
+	AccountResponse closeAccount(String accountNo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		boolean accountFound = false;
+		if(accountNo.isEmpty() || accountNo == null)
+			throw new AccountManagerException("Account no is empty.");
+		if(accountList.size() == 0)
+			throw new AccountManagerException("Account list is empty. ");
+		//To remove the account, iterate throgh the loop and if found remove it from the list
+		for (CustomerAccount customerAccount : accountList) {
+			if(accountNo.equals(customerAccount.getAccount().getAccountNo())) {
+				//remove it from list.
+				accountFound = true;
+				accountList.remove(customerAccount);
+				response = new AccountResponse();
+				response.setAccountNo(accountNo);
+				response.setComment("Account has been closed successfully");
+				response.setJobName("Account closing");
+				response.setJobStatus("Success");
+				return response;
+			}
+		}
+		
+		if(accountFound == false)
+			throw new AccountManagerException("Failed to close the account. Account has not been found : " + accountNo);
+		return response;
+	}
+}

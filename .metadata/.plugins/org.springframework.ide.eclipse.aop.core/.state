@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop-reference-model>
+<aop-project name="TDMJobEngineService"/>
+<aop-project name="TDMService"/>
+<aop-project name="TDMLegacyExecuterService"/>
+<aop-project name="TDMGeneratorService"/>
+<aop-project name="TDMWebCommon"/>
+<aop-project name="TDMPublisherService"/>
+<aop-project name="TDMServiceCommon"/>
+<aop-project name="TDMWeb"/>
+<aop-project name="layers"/>
+<aop-project name="repository"/>
+<aop-project name="TDMConnectionProfileService"/>
+<aop-project name="TDMProjectService"/>
+<aop-project name="TDMModelService"/>
+<aop-project name="TDMDataFlowService"/>
+<aop-project name="spring-mvc-showcase-master"/>
+</aop-reference-model>

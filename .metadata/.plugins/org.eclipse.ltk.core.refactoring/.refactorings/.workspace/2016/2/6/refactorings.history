@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;BackTracking_Subset&apos; to &apos;LC_BackTracking_Subset&apos;&#x0D;&#x0A;- Original element: &apos;BackTracking_Subset&apos;&#x0D;&#x0A;- Renamed element: &apos;BackTracking_Subset&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;BackTracking_Subset&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=BackTracking_Subset" name="LC_BackTracking_Subset" references="true" stamp="1454601389086" version="1.0"/>
+</session>

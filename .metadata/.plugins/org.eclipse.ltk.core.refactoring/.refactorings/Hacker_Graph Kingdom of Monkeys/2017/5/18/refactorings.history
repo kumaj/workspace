@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;Monkey&apos; to &apos;Graph&apos;&#x0D;&#x0A;- Original project: &apos;Hacker_Graph Kingdom of Monkeys&apos;&#x0D;&#x0A;- Original element: &apos;Monkey&apos;&#x0D;&#x0A;- Renamed element: &apos;Graph&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Monkey&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{Monkey.java[Monkey" matchStrategy="1" name="Graph" qualified="false" references="true" similarDeclarations="false" stamp="1493793115057" textual="false" version="1.0"/>
+</session>

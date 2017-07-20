@@ -1,0 +1,16 @@
+
+public class SavingAccount extends Account {
+
+	@Override
+	void createAccount(CustomerInfo customerInfo) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	void closeAccount(String accountNo) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

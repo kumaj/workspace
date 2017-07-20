@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename method &apos;SteppingNumber.checkSteppingDigit(...)&apos; to &apos;isSteppingDigit&apos;&#x0D;&#x0A;- Original project: &apos;Graph_Stepping Number&apos;&#x0D;&#x0A;- Original element: &apos;SteppingNumber.checkSteppingDigit(...)&apos;&#x0D;&#x0A;- Renamed element: &apos;SteppingNumber.isSteppingDigit(...)&apos;&#x0D;&#x0A;- Update references to refactored element" delegate="false" deprecate="false" description="Rename method &apos;checkSteppingDigit&apos;" flags="589826" id="org.eclipse.jdt.ui.rename.method" input="/src&lt;{SteppingNumber.java[SteppingNumber~checkSteppingDigit~QString;" name="isSteppingDigit" references="true" stamp="1493053493977" version="1.0"/>
+</session>

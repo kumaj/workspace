@@ -1,0 +1,22 @@
+
+public class Permute {
+	public void permuteWord(String str) {
+		int len = str.length()-1;
+		permute(str, 0, len);
+	}
+
+	private void permute(String str, int start, int end) {
+		if(start>=end)
+			System.out.println(str);
+		for(int i = start; i<= end; i++) {
+			permute(str, start+1, end);
+		}
+			
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

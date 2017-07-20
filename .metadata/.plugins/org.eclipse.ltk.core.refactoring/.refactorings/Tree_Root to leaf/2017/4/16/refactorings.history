@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;sumArr&apos; in &apos;RootToLeaf.getPathSum(...)&apos; to &apos;resultArr&apos;&#x0D;&#x0A;- Original project: &apos;Tree_Root to leaf&apos;&#x0D;&#x0A;- Original element: &apos;RootToLeaf.getPathSum(TreeNode, int[], int, int, int[]).sumArr&apos;&#x0D;&#x0A;- Renamed element: &apos;sumArr&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;sumArr&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{RootToLeaf.java[RootToLeaf~getPathSum~QTreeNode;~\[I~I~I~\[I@sumArr!1437!1448!1443!1448!\[I!0!true" name="resultArr" references="true" stamp="1492759211526" version="1.0"/>
+</session>

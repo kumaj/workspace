@@ -1,0 +1,6 @@
+
+public class Difference {
+    public int solve(ArrayList<Integer> A, ArrayList<Integer> B, ArrayList<Integer> C) {
+    
+    }
+}

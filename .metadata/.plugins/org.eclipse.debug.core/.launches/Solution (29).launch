@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/TwoPinters_3SUM_3 integers whose sum is closest to a given no"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="ClosestSum.Solution"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="TwoPinters_3SUM_3 integers whose sum is closest to a given no"/>
+</launchConfiguration>

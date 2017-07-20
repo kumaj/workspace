@@ -1,0 +1,43 @@
+
+import java.util.ArrayList;
+import java.util.List;
+
+import account.exception.AccountManagerException;
+
+/**
+ * Controller class to create, close and manage the account.
+ * @author kumaj04
+ *
+ */
+public class AccountManager {
+	private static List<CustomerAccount> accountList; // there should be only one list of account...that's why it has been made as static.
+	private AcountFactory accountfactory;
+	
+	public AccountManager() {
+		accountList = new ArrayList<CustomerAccount>();
+		accountfactory = new AcountFactory();
+	}
+	
+	/**
+	 * 
+	 * @param customerInfo details of the customer
+	 * @param accountType type of the account to be created
+	 * @return
+	 */
+	public AccountResponse createAccount(CustomerInfo customerInfo, AccountType accountType) throws AccountManagerException {
+		Account account = accountfactory.getAccountInstance(accountType);
+		AccountResponse response = account.createAccount(customerInfo, accountList); // We have to pass the list because we can't call new of AccountMgr.
+		return response;
+	}
+	
+	public AccountResponse closeAccount(String accountNo, AccountType accountType) throws AccountManagerException {
+		Account account = accountfactory.getAccountInstance(accountType);
+		AccountResponse response = account.closeAccount(accountNo, accountList); // We have to pass the list to remove the acccount from it.
+		return response;
+	}
+	
+	public void getAllAccountsDetail() {
+		Account savingAct = accountfactory.getAccountInstance(AccountType.Saving);
+	}
+	
+}

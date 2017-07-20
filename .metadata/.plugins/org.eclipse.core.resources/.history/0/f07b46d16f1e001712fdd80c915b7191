@@ -1,0 +1,26 @@
+import java.util.List;
+
+import account.exception.AccountManagerException;
+
+/**
+ * Saving account
+ * @author kumaj04
+ *
+ */
+public class SavingAccount extends Account {
+
+	@Override
+	AccountResponse createAccount(CustomerInfo customerInfo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		return response;
+
+	}
+
+	@Override
+	AccountResponse closeAccount(String accountNo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		//To remove the account, iterate throgh the loop and if found remove it from the list
+		return response;
+	}
+
+}

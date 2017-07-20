@@ -1,0 +1,86 @@
+import java.util.List;
+
+import account.exception.AccountManagerException;
+
+/**
+ * Account can be of different types like saving account, salaried account, current account, demat account, joint account etc
+ * @author kumaj04
+ *
+ */
+abstract class Account {
+	protected String accountNo;
+	protected String accountName;
+	protected String accountAddress;
+	protected double interestRate;
+	protected String branchName;
+	protected AccountType accountType;
+	
+	public Account() {}
+	
+	public Account(String accountNo,String accountName,String accountAddress,double interestRate,String branchName,AccountType accountType) {
+		this.accountNo = accountNo;
+		this.accountName = accountName;
+		this.accountAddress = accountAddress;
+		this.interestRate = interestRate;
+		this.branchName = branchName;
+		this.accountType = accountType;
+	}
+	
+	// Abstract Method to create and close the account
+	abstract AccountResponse createAccount(CustomerInfo customerInfo, List<CustomerAccount> accountList) throws AccountManagerException;
+	abstract AccountResponse closeAccount(String accountNo, List<CustomerAccount> accountList) throws AccountManagerException;
+	abstract void getAllAccountDetails(List<CustomerAccount> accountList);
+	abstract void getAccountDetails(String accountNo, List<CustomerAccount> accountList);
+	
+
+	public String getAccountNo() {
+		return accountNo;
+	}
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo;
+	}
+	public String getAccountName() {
+		return accountName;
+	}
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
+	}
+	public String getAccountAddress() {
+		return accountAddress;
+	}
+	public void setAccountAddress(String accountAddress) {
+		this.accountAddress = accountAddress;
+	}
+	/**
+	 * @return the interestRate
+	 */
+	public double getInterestRate() {
+		return interestRate;
+	}
+	/**
+	 * @param interestRate the interestRate to set
+	 */
+	public void setInterestRate(double interestRate) {
+		this.interestRate = interestRate;
+	}
+	/**
+	 * @return the branchName
+	 */
+	public String getBranchName() {
+		return branchName;
+	}
+	/**
+	 * @param branchName the branchName to set
+	 */
+	public void setBranchName(String branchName) {
+		this.branchName = branchName;
+	}
+
+	public AccountType getAccountType() {
+		return accountType;
+	}
+
+	public void setAccountType(AccountType accountType) {
+		this.accountType = accountType;
+	}
+}

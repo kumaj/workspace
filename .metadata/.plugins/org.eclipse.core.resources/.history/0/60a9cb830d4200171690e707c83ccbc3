@@ -1,0 +1,11 @@
+/**
+ * 
+ * @author kumaj04
+ *
+ */
+public class NameTester {
+	
+	public void getName(String fileName) {
+		
+	}
+}

@@ -1,0 +1,62 @@
+import java.util.ArrayList;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
+
+public class FlattenTree {
+
+    //Create a class level arraylist to store the pre order traversal
+    ArrayList<Integer> arr = new ArrayList<Integer>();
+	public TreeNode flatten(TreeNode a) {
+        if(a == null)
+            return null;
+        //Do the preorder traversal and fill the arr    
+        preOrder(a);
+        for(int i = 1; i < arr.size(); i++) {
+            a.right = new TreeNode(arr.get(i));
+            a = a.right;
+        }
+        return a;
+	}
+	
+	// PreOrder traversal
+	public void preOrder(TreeNode root) {
+	    if(root == null)
+	        return;
+	    arr.add(root.val);     
+	    preOrder(root.left);
+	    if(root.left != null) // delete the left node
+	        root.left = null;
+	    preOrder(root.right);
+	    if(root.right != null) // delete the right node
+	        root.right = null;
+	}
+	
+	public void preOrderPrint(TreeNode root) {
+		if(root == null)
+			return;
+		System.out.println(root.val);
+		preOrderPrint(root.left);
+		preOrderPrint(root.right);
+	}
+
+}
+
+class Solution {
+	public static void main(String[] args) {
+		TreeNode root = new TreeNode(50);
+		root.left = new TreeNode(40);
+		root.left.left = new TreeNode(30);
+		root.left.left.left = new TreeNode(20);
+		root.right = new TreeNode(60);
+		root.right.right = new TreeNode(70);
+		root.right.right.right = new TreeNode(80);
+		
+		FlattenTree f = new FlattenTree();
+		f.flatten(root);
+	}
+}

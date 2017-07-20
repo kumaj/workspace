@@ -1,0 +1,6 @@
+1492235044771	Encapsulate field 'deptAEmployees'
+1492235223097	Encapsulate field 'deptBEmployees'
+1492235303621	Rename field 'deptAEmployees'
+1492235310082	Rename field 'deptBEmployees'
+1492236100166	Rename local variable 'deptA'
+1492236109272	Rename local variable 'deptB'

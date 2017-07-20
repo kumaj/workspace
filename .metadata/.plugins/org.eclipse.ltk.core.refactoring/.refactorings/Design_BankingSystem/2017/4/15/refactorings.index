@@ -1,0 +1,41 @@
+1491829992141	Encapsulate field 'name'
+1491829996618	Encapsulate field 'address'
+1491830000113	Encapsulate field 'mobileNo'
+1491830092743	Encapsulate field 'interestRate'
+1491830114993	Encapsulate field 'branchName'
+1491883545286	Encapsulate field 'jobName'
+1491883548769	Encapsulate field 'jobStatus'
+1491883552117	Encapsulate field 'comment'
+1491883943179	Encapsulate field 'accountNo'
+1491884251394	Rename field 'mobileNo'
+1491884262673	Encapsulate field 'IdProofNo'
+1491884642240	Encapsulate field 'secondaryAccountName'
+1491885019326	Encapsulate field 'customerInfo'
+1491885023192	Encapsulate field 'account'
+1491887500073	Extract method 'validateCustomerInformation'
+1491887526557	Extract method 'checkCustomerExistence'
+1491887802863	Rename local variable 'custAcc'
+1491887983096	Extract method 'initiateAccountCreation'
+1491888136195	Extract method 'getResponse'
+1491888305028	Rename local variable 'savingAcc'
+1491888367310	Encapsulate field 'secondaryAccountName'
+1491916224895	Move compilation unit
+1491916250202	Move compilation unit
+1491916259133	Delete element
+1491916886961	Encapsulate field 'stockAmount'
+1491917164390	Rename local variable 'savingAcc'
+1491917195679	Encapsulate field 'stockAmount'
+1492006180968	Rename type 'Branch'
+1492006356221	Encapsulate field 'branchCode'
+1492006360723	Encapsulate field 'branchAddress'
+1492010275765	Delete element
+1492010335982	Encapsulate field 'managerName'
+1492011362181	Delete element
+1492016624692	Encapsulate field 'employeeName'
+1492017101304	Encapsulate field 'branchList'
+1492017300594	Encapsulate field 'employeeId'
+1492017459215	Encapsulate field 'customerEmployeeMap'
+1492017678879	Encapsulate field 'employeeList'
+1492054896445	Encapsulate field 'bankType'
+1492056427493	Copy compilation units
+1492056448431	Copy compilation unit

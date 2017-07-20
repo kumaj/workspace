@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;newhead&apos; in &apos;DeepCopy.copyRandomList(...)&apos; to &apos;newNode&apos;&#x0D;&#x0A;- Original project: &apos;Hashing_Deep copy of linked list&apos;&#x0D;&#x0A;- Original element: &apos;DeepCopy.copyRandomList(RandomListNode).newhead&apos;&#x0D;&#x0A;- Renamed element: &apos;newhead&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;newhead&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{DeepCopy.java[DeepCopy~copyRandomList~QRandomListNode;@newhead!513!542!528!534!QRandomListNode;!0!false" name="newNode" references="true" stamp="1494390392311" version="1.0"/>
+</session>

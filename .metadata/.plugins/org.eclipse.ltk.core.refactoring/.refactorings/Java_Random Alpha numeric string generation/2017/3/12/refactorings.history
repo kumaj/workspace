@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;character&apos; in &apos;AlphaNumericString.randomAlphaNumeric(...)&apos; to &apos;position&apos;&#x0D;&#x0A;- Original project: &apos;Java_Random Alpha numeric string generation&apos;&#x0D;&#x0A;- Original element: &apos;AlphaNumericString.randomAlphaNumeric(int).character&apos;&#x0D;&#x0A;- Renamed element: &apos;character&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;character&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{AlphaNumericString.java[AlphaNumericString~randomAlphaNumeric~I@character!261!326!265!273!I!0!false" name="position" references="true" stamp="1490332001680" version="1.0"/>
+</session>

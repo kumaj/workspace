@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ALMService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://tdod-sql-dev:8095/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://tdod-sql-dev:8095/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" />
+      <xsd:import schemaLocation="http://tdod-sql-dev:8095/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://tdod-sql-dev:8095/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://tdod-sql-dev:8095/?xsd=xsd4" namespace="http://schemas.microsoft.com/Message" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IALMService_GetBuildInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildInfo" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBuildInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBuildInfo_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q1:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetALMVersion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetALMVersion" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetALMVersion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetALMVersionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetALMVersion_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q2:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDesignSteps_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDesignSteps" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDesignSteps_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDesignStepsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDesignSteps_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q3:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetServiceURL_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetServiceURL" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetServiceURL_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetServiceURLResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetServiceURL_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q4:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSessionEx_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartSessionEx" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSessionEx_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartSessionExResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSessionEx_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q5:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartSession" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_StartSession_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q6:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsConnected_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsConnected" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsConnected_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsConnectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsConnected_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q7:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachSession" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachSession_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q8:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CloseSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSession" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CloseSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CloseSession_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q9:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDomains_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDomains" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDomains_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDomainsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetDomains_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q10:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetProjects_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjects" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetProjects_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProjectsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetProjects_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q11:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetTestCaseRoot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTestCaseRoot" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetTestCaseRoot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTestCaseRootResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetTestCaseRoot_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q12:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerTestCases_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInnerTestCases" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerTestCases_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInnerTestCasesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerTestCases_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q13:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetRequirementRoot_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequirementRoot" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetRequirementRoot_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRequirementRootResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetRequirementRoot_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q14:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerRequirements_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetInnerRequirements" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerRequirements_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetInnerRequirementsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetInnerRequirements_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q15:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugs" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugs_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q16:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_FilterBugs_InputMessage">
+    <wsdl:part name="parameters" element="tns:FilterBugs" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_FilterBugs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FilterBugsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_FilterBugs_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q17:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsFilterFields_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugsFilterFields" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsFilterFields_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugsFilterFieldsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsFilterFields_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q18:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithBug_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithBug" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithBug_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithBugResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithBug_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q19:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithTest" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithTestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTest_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q20:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithDesignStep_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithDesignStep" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithDesignStep_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithDesignStepResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithDesignStep_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q21:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTestFolder_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithTestFolder" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTestFolder_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithTestFolderResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithTestFolder_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q22:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithRequirement_InputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithRequirement" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithRequirement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AttachInformationWithRequirementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_AttachInformationWithRequirement_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q23:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugsCount" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugsCount_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q24:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugById_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugById" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugById_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBugByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_GetBugById_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q25:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsProjectVCSEnabled_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsProjectVCSEnabled" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsProjectVCSEnabled_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsProjectVCSEnabledResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsProjectVCSEnabled_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q26:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutTestCase_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckoutTestCase" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutTestCase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckoutTestCaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutTestCase_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q27:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinTestCase_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckinTestCase" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinTestCase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckinTestCaseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinTestCase_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q28:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutRequirement_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckoutRequirement" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutRequirement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckoutRequirementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckoutRequirement_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q29:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinRequirement_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckinRequirement" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinRequirement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckinRequirementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_CheckinRequirement_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q30:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsTestCaseCheckedOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsTestCaseCheckedOut" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsTestCaseCheckedOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsTestCaseCheckedOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IALMService_IsTestCaseCheckedOut_GTHPALMServiceLibFaultFault_FaultMessage">
+    <wsdl:part xmlns:q31="http://schemas.datacontract.org/2004/07/GTHPALMServiceLib" name="detail" element="q31:GTHPALMServiceLibFault" />
+  </wsdl:message>
+  <wsdl:message name="IPolicyRestriction_GetSilverlightPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetSilverlightPolicy" />
+  </wsdl:message>
+  <wsdl:message name="IPolicyRestriction_GetSilverlightPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetSilverlightPolicyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPolicyRestriction_GetFlashPolicy_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlashPolicy" />
+  </wsdl:message>
+  <wsdl:message name="IPolicyRestriction_GetFlashPolicy_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFlashPolicyResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IALMService">
+    <wsdl:operation name="GetBuildInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetBuildInfo" message="tns:IALMService_GetBuildInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetBuildInfoResponse" message="tns:IALMService_GetBuildInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetBuildInfoGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetBuildInfo_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetALMVersion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetALMVersion" message="tns:IALMService_GetALMVersion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetALMVersionResponse" message="tns:IALMService_GetALMVersion_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetALMVersionGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetALMVersion_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignSteps">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetDesignSteps" message="tns:IALMService_GetDesignSteps_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetDesignStepsResponse" message="tns:IALMService_GetDesignSteps_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetDesignStepsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetDesignSteps_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceURL">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetServiceURL" message="tns:IALMService_GetServiceURL_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetServiceURLResponse" message="tns:IALMService_GetServiceURL_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetServiceURLGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetServiceURL_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartSessionEx">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/StartSessionEx" message="tns:IALMService_StartSessionEx_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/StartSessionExResponse" message="tns:IALMService_StartSessionEx_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/StartSessionExGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_StartSessionEx_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/StartSession" message="tns:IALMService_StartSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/StartSessionResponse" message="tns:IALMService_StartSession_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/StartSessionGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_StartSession_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsConnected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/IsConnected" message="tns:IALMService_IsConnected_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/IsConnectedResponse" message="tns:IALMService_IsConnected_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/IsConnectedGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_IsConnected_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachSession" message="tns:IALMService_AttachSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachSessionResponse" message="tns:IALMService_AttachSession_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachSessionGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachSession_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/CloseSession" message="tns:IALMService_CloseSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/CloseSessionResponse" message="tns:IALMService_CloseSession_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/CloseSessionGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_CloseSession_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDomains">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetDomains" message="tns:IALMService_GetDomains_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetDomainsResponse" message="tns:IALMService_GetDomains_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetDomainsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetDomains_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProjects">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetProjects" message="tns:IALMService_GetProjects_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetProjectsResponse" message="tns:IALMService_GetProjects_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetProjectsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetProjects_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTestCaseRoot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetTestCaseRoot" message="tns:IALMService_GetTestCaseRoot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetTestCaseRootResponse" message="tns:IALMService_GetTestCaseRoot_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetTestCaseRootGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetTestCaseRoot_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInnerTestCases">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetInnerTestCases" message="tns:IALMService_GetInnerTestCases_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetInnerTestCasesResponse" message="tns:IALMService_GetInnerTestCases_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetInnerTestCasesGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetInnerTestCases_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRequirementRoot">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetRequirementRoot" message="tns:IALMService_GetRequirementRoot_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetRequirementRootResponse" message="tns:IALMService_GetRequirementRoot_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetRequirementRootGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetRequirementRoot_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInnerRequirements">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetInnerRequirements" message="tns:IALMService_GetInnerRequirements_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetInnerRequirementsResponse" message="tns:IALMService_GetInnerRequirements_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetInnerRequirementsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetInnerRequirements_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBugs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetBugs" message="tns:IALMService_GetBugs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetBugsResponse" message="tns:IALMService_GetBugs_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetBugsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetBugs_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FilterBugs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/FilterBugs" message="tns:IALMService_FilterBugs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/FilterBugsResponse" message="tns:IALMService_FilterBugs_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/FilterBugsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_FilterBugs_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBugsFilterFields">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetBugsFilterFields" message="tns:IALMService_GetBugsFilterFields_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetBugsFilterFieldsResponse" message="tns:IALMService_GetBugsFilterFields_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetBugsFilterFieldsGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetBugsFilterFields_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithBug">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithBug" message="tns:IALMService_AttachInformationWithBug_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithBugResponse" message="tns:IALMService_AttachInformationWithBug_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithBugGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachInformationWithBug_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithTest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTest" message="tns:IALMService_AttachInformationWithTest_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTestResponse" message="tns:IALMService_AttachInformationWithTest_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTestGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachInformationWithTest_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithDesignStep">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithDesignStep" message="tns:IALMService_AttachInformationWithDesignStep_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithDesignStepResponse" message="tns:IALMService_AttachInformationWithDesignStep_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithDesignStepGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachInformationWithDesignStep_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithTestFolder">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTestFolder" message="tns:IALMService_AttachInformationWithTestFolder_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTestFolderResponse" message="tns:IALMService_AttachInformationWithTestFolder_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithTestFolderGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachInformationWithTestFolder_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithRequirement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithRequirement" message="tns:IALMService_AttachInformationWithRequirement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithRequirementResponse" message="tns:IALMService_AttachInformationWithRequirement_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/AttachInformationWithRequirementGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_AttachInformationWithRequirement_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBugsCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetBugsCount" message="tns:IALMService_GetBugsCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetBugsCountResponse" message="tns:IALMService_GetBugsCount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetBugsCountGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetBugsCount_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBugById">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/GetBugById" message="tns:IALMService_GetBugById_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/GetBugByIdResponse" message="tns:IALMService_GetBugById_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/GetBugByIdGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_GetBugById_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsProjectVCSEnabled">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/IsProjectVCSEnabled" message="tns:IALMService_IsProjectVCSEnabled_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/IsProjectVCSEnabledResponse" message="tns:IALMService_IsProjectVCSEnabled_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/IsProjectVCSEnabledGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_IsProjectVCSEnabled_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckoutTestCase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/CheckoutTestCase" message="tns:IALMService_CheckoutTestCase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/CheckoutTestCaseResponse" message="tns:IALMService_CheckoutTestCase_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/CheckoutTestCaseGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_CheckoutTestCase_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckinTestCase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/CheckinTestCase" message="tns:IALMService_CheckinTestCase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/CheckinTestCaseResponse" message="tns:IALMService_CheckinTestCase_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/CheckinTestCaseGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_CheckinTestCase_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckoutRequirement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/CheckoutRequirement" message="tns:IALMService_CheckoutRequirement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/CheckoutRequirementResponse" message="tns:IALMService_CheckoutRequirement_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/CheckoutRequirementGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_CheckoutRequirement_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckinRequirement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/CheckinRequirement" message="tns:IALMService_CheckinRequirement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/CheckinRequirementResponse" message="tns:IALMService_CheckinRequirement_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/CheckinRequirementGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_CheckinRequirement_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsTestCaseCheckedOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/IALMService/IsTestCaseCheckedOut" message="tns:IALMService_IsTestCaseCheckedOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IALMService/IsTestCaseCheckedOutResponse" message="tns:IALMService_IsTestCaseCheckedOut_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IALMService/IsTestCaseCheckedOutGTHPALMServiceLibFaultFault" name="GTHPALMServiceLibFaultFault" message="tns:IALMService_IsTestCaseCheckedOut_GTHPALMServiceLibFaultFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPolicyRestriction">
+    <wsdl:operation name="GetSilverlightPolicy">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPolicyRestriction/GetSilverlightPolicy" message="tns:IPolicyRestriction_GetSilverlightPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPolicyRestriction/GetSilverlightPolicyResponse" message="tns:IPolicyRestriction_GetSilverlightPolicy_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFlashPolicy">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPolicyRestriction/GetFlashPolicy" message="tns:IPolicyRestriction_GetFlashPolicy_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPolicyRestriction/GetFlashPolicyResponse" message="tns:IPolicyRestriction_GetFlashPolicy_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IALMService" type="tns:IALMService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBuildInfo">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetBuildInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetALMVersion">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetALMVersion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetDesignSteps">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetDesignSteps" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetServiceURL">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetServiceURL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="StartSessionEx">
+      <soap:operation soapAction="http://tempuri.org/IALMService/StartSessionEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="StartSession">
+      <soap:operation soapAction="http://tempuri.org/IALMService/StartSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsConnected">
+      <soap:operation soapAction="http://tempuri.org/IALMService/IsConnected" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachSession">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CloseSession">
+      <soap:operation soapAction="http://tempuri.org/IALMService/CloseSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetDomains">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetDomains" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetProjects">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetProjects" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetTestCaseRoot">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetTestCaseRoot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInnerTestCases">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetInnerTestCases" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetRequirementRoot">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetRequirementRoot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetInnerRequirements">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetInnerRequirements" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBugs">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetBugs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="FilterBugs">
+      <soap:operation soapAction="http://tempuri.org/IALMService/FilterBugs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBugsFilterFields">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetBugsFilterFields" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithBug">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachInformationWithBug" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithTest">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachInformationWithTest" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithDesignStep">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachInformationWithDesignStep" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithTestFolder">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachInformationWithTestFolder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AttachInformationWithRequirement">
+      <soap:operation soapAction="http://tempuri.org/IALMService/AttachInformationWithRequirement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBugsCount">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetBugsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetBugById">
+      <soap:operation soapAction="http://tempuri.org/IALMService/GetBugById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsProjectVCSEnabled">
+      <soap:operation soapAction="http://tempuri.org/IALMService/IsProjectVCSEnabled" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CheckoutTestCase">
+      <soap:operation soapAction="http://tempuri.org/IALMService/CheckoutTestCase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CheckinTestCase">
+      <soap:operation soapAction="http://tempuri.org/IALMService/CheckinTestCase" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CheckoutRequirement">
+      <soap:operation soapAction="http://tempuri.org/IALMService/CheckoutRequirement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CheckinRequirement">
+      <soap:operation soapAction="http://tempuri.org/IALMService/CheckinRequirement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="IsTestCaseCheckedOut">
+      <soap:operation soapAction="http://tempuri.org/IALMService/IsTestCaseCheckedOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="GTHPALMServiceLibFaultFault">
+        <soap:fault use="literal" name="GTHPALMServiceLibFaultFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ALMService">
+    <wsdl:port name="BasicHttpBinding_IALMService" binding="tns:BasicHttpBinding_IALMService">
+      <soap:address location="http://tdod-sql-dev:8095/ALMService" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

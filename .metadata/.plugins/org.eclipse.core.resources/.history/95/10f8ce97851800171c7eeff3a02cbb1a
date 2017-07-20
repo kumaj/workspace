@@ -1,0 +1,14 @@
+/**
+ * https://www.interviewbit.com/problems/window-string/
+ * @author kumaj04
+ *
+ */
+public class WindowString {
+
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

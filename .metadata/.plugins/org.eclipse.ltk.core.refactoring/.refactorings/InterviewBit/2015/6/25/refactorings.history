@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;maxSet.Program&apos; to &apos;MaximumSum&apos;&#x0D;&#x0A;- Original project: &apos;InterviewBit&apos;&#x0D;&#x0A;- Original element: &apos;maxSet.Program&apos;&#x0D;&#x0A;- Renamed element: &apos;maxSet.MaximumSum&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;Program&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;maxSet{Program.java[Program" matchStrategy="1" name="MaximumSum" qualified="false" references="true" similarDeclarations="false" stamp="1434812191848" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,15 @@
+import java.util.Iterator;
+
+
+public class Solution {
+	public static void main(String[] args) {
+		DinnerMenu dinner = new DinnerMenu();
+		//now get the dinner iterator
+		Iterator<MenuItem> dinnerIter = dinner.createIterator();
+		while (dinnerIter.hasNext()) {
+			MenuItem dinneritem = (MenuItem) dinnerIter.next();
+			System.out.println(dinneritem.getName() + " ");
+			
+		}
+	}
+}

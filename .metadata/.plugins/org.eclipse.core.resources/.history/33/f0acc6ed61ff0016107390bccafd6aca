@@ -1,0 +1,14 @@
+/**
+ * This is the custom implementation of the hashMap
+ * @author kumaj04
+ *
+ */
+public class CustomHashMap {
+
+}
+
+class Solution {
+	public static void main(String[] args) {
+
+	}
+}

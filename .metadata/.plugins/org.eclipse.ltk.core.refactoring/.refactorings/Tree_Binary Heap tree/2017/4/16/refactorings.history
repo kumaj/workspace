@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename local variable &apos;ind&apos; in &apos;BinaryHeap.delete(...)&apos; to &apos;index&apos;&#x0D;&#x0A;- Original project: &apos;Tree_Binary Heap tree&apos;&#x0D;&#x0A;- Original element: &apos;BinaryHeap.delete(int).ind&apos;&#x0D;&#x0A;- Renamed element: &apos;ind&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename local variable &apos;ind&apos;" id="org.eclipse.jdt.ui.rename.local.variable" input="/src&lt;{BinaryHeap.java[BinaryHeap~delete~I@ind!1325!1331!1329!1331!I!0!true" name="index" references="true" stamp="1492844979007" version="1.0"/>
+</session>

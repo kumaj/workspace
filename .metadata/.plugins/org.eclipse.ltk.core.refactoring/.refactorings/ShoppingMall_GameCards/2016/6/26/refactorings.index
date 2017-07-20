@@ -1,0 +1,16 @@
+1466432096394	Rename package 'com.ca.tdm.games.controller'
+1466432226450	Encapsulate field 'userName'
+1466432231894	Encapsulate field 'age'
+1466432237219	Encapsulate field 'mobileNo'
+1466432241308	Encapsulate field 'address'
+1466432659918	Encapsulate field 'mallName'
+1466432664738	Encapsulate field 'address'
+1466432668950	Encapsulate field 'mallid'
+1466432672835	Encapsulate field 'establishedYr'
+1466432812905	Encapsulate field 'cardNo'
+1466432816602	Encapsulate field 'validFrom'
+1466432820721	Encapsulate field 'validTo'
+1466503340021	Rename package 'com.ca.tdm.card.services'
+1466504537882	Rename type 'carRace'
+1466509996157	Delete element
+1466510368734	Delete element

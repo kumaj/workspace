@@ -1,0 +1,40 @@
+import java.util.List;
+
+import account.exception.AccountManagerException;
+
+/**
+ * Saving account
+ * @author kumaj04
+ *
+ */
+public class SavingAccount extends Account {
+
+	@Override
+	AccountResponse createAccount(CustomerInfo customerInfo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		return response;
+
+	}
+
+	@Override
+	AccountResponse closeAccount(String accountNo, List<CustomerAccount> accountList) throws AccountManagerException {
+		AccountResponse response = null;
+		if(accountNo.isEmpty() || accountNo == null)
+			throw new AccountManagerException("Account no is empty.");
+		//To remove the account, iterate throgh the loop and if found remove it from the list
+		for (CustomerAccount customerAccount : accountList) {
+			if(accountNo.equals(customerAccount.getAccount().getAccountNo())) {
+				//remove it from list.
+				accountList.remove(customerAccount);
+				response = new AccountResponse();
+				response.setAccountNo(accountNo);
+				response.setComment("Account has been closed successfully");
+				response.setJobName("Account closing");
+				response.setJobStatus("Success");
+				return response;
+			}
+		}
+		return response;
+	}
+
+}

@@ -1,0 +1,427 @@
+<?xml version="1.0"?>
+<!--
+
+****  Copyright (c) 2008 CA.  All rights reserved.  
+****  This software and all information contained therein is confidential and proprietary and shall 
+****  not be duplicated, used, disclosed or disseminated in any way except as authorized by the 
+****  applicable license agreement, without the express written permission of CA. All authorized 
+****  reproductions must be marked with this language.  
+****  
+****  EXCEPT AS SET FORTH IN THE APPLICABLE LICENSE AGREEMENT, TO THE EXTENT PERMITTED BY APPLICABLE 
+****  LAW, CA PROVIDES THIS SOFTWARE WITHOUT WARRANTY OF ANY KIND, INCLUDING WITHOUT LIMITATION, ANY 
+****  IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT WILL CA 
+****  BE LIABLE TO THE END USER OR ANY THIRD PARTY FOR ANY LOSS OR DAMAGE, DIRECT OR INDIRECT, FROM 
+****  THE USE OF THIS SOFTWARE, INCLUDING WITHOUT LIMITATION, LOST PROFITS, BUSINESS INTERRUPTION, 
+****  GOODWILL, OR LOST DATA, EVEN IF CA IS EXPRESSLY ADVISED OF SUCH LOSS OR DAMAGE.
+
+-->
+<wsdl:definitions xmlns:tns="http://www.ca.com/aom/2008/05" xmlns:types="http://www.ca.com/aom/types/2008/05" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:i18n="http://www.w3.org/2005/09/ws-i18n" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://schemas.xmlsoap.org/ws/2002/07/utility" xmlns:wse="http://schemas.xmlsoap.org/ws/2004/08/eventing" targetNamespace="http://www.ca.com/aom/2008/05">
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="http://www.ca.com/aom/2008/05">
+			<xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/addressing" schemaLocation="addressing.xsd"/>
+			<xsd:import namespace="http://www.w3.org/2005/09/ws-i18n" schemaLocation="ws-i18n.xsd"/>
+			<xsd:import namespace="http://www.ca.com/aom/types/2008/05" schemaLocation="aom.xsd"/>
+			<xsd:import namespace="http://schemas.xmlsoap.org/ws/2004/08/eventing" schemaLocation="wseventing.xsd"/>
+			<xsd:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+			<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd"/>
+			<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" schemaLocation="utility-1.0.xsd"/>
+			<xsd:import namespace="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="secext-1.0.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="InternationalMessage">
+		<wsdl:part name="Header" element="i18n:international"/>
+	</wsdl:message>
+	<wsdl:message name="ActionMessage">
+		<wsdl:part name="Header" element="wsa:Action"/>
+	</wsdl:message>
+	<wsdl:message name="MessageIDMessage">
+		<wsdl:part name="Header" element="wsa:MessageID"/>
+	</wsdl:message>
+	<wsdl:message name="ToMessage">
+		<wsdl:part name="Header" element="wsa:To"/>
+	</wsdl:message>
+	<wsdl:message name="FromMessage">
+		<wsdl:part name="Header" element="wsa:From"/>
+	</wsdl:message>
+	<wsdl:message name="FaultToMessage">
+		<wsdl:part name="Header" element="wsa:FaultTo"/>
+	</wsdl:message>
+	<wsdl:message name="RelatesToMessage">
+		<wsdl:part name="Header" element="wsa:RelatesTo"/>
+	</wsdl:message>
+	<wsdl:message name="ReplyToMessage">
+		<wsdl:part name="Header" element="wsa:ReplyTo"/>
+	</wsdl:message>
+	<wsdl:message name="IdentifierMessage">
+		<wsdl:part name="Header" element="wse:Identifier"/>
+	</wsdl:message>
+	<wsdl:message name="Header">
+		<wsdl:part name="Security" element="wsse:Security"/>
+	</wsdl:message>
+	<wsdl:message name="DiscoveryRequestMessage">
+		<wsdl:part name="request" element="types:DiscoveryRequest"/>
+	</wsdl:message>
+	<wsdl:message name="DiscoveryExRequestMessage">
+		<wsdl:part name="request" element="types:DiscoveryExRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ManagedElementDiscoveredMessage">
+		<wsdl:part name="request" element="types:ManagedElementDiscovered"/>
+	</wsdl:message>
+	<wsdl:message name="DiscoveryCompleteMessage">
+		<wsdl:part name="request" element="types:DiscoveryComplete"/>
+	</wsdl:message>
+	<wsdl:message name="ClassifyManagedElementRequestMessage">
+		<wsdl:part name="request" element="types:ClassifyManagedElementRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ClassifyManagedElementResponseMessage">
+		<wsdl:part name="response" element="types:ClassifyManagedElementRequest"/>
+	</wsdl:message>
+	<wsdl:message name="ReconcileManagedElementRequestMessage">
+		<wsdl:part name="request" element="types:ReconcileManagedElementRequest"/>
+	</wsdl:message>
+	<wsdl:message name="EnrichClassifiedManagedElementRequestMessage">
+		<wsdl:part name="request" element="types:EnrichClassifiedManagedElementRequest"/>
+	</wsdl:message>
+	<wsdl:message name="RegisterExtrinsicMethodGroupRequestMessage">
+		<wsdl:part name="request" element="types:RegisterExtrinsicMethodGroupRequest"/>
+	</wsdl:message>
+	<wsdl:message name="UnregisterExtrinsicMethodGroupRequestMessage">
+		<wsdl:part name="request" element="types:UnregisterExtrinsicMethodGroupRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CancelDiscoveryRequestMessage">
+		<wsdl:part name="request" element="types:CancelDiscoveryRequest"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteNetworkDiscoveryRequestMessage">
+		<wsdl:part name="request" element="types:DeleteNetworkDiscoveryRequest"/>
+	</wsdl:message>
+	<wsdl:message name="CancelDiscoveryCompleteMessage">
+		<wsdl:part name="request" element="types:CancelDiscoveryComplete"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteNetworkDiscoveryRequestCompleteMessage">
+		<wsdl:part name="request" element="types:DeleteNetworkDiscoveryRequestComplete"/>
+	</wsdl:message>
+	<wsdl:message name="DeletingManagedElementRequestMessage">
+		<wsdl:part name="request" element="types:DeletingManagedElementRequest"/>
+	</wsdl:message>
+	<wsdl:message name="DeleteManagedElementCompleteRequestMessage">
+		<wsdl:part name="request" element="types:DeleteManagedElementCompleteRequest"/>
+	</wsdl:message>
+	<wsdl:message name="publishProcessIndicationRequestMessage">
+		<wsdl:part name="request" element="types:publishProcessIndication"/>
+	</wsdl:message>
+	<wsdl:message name="publishProcessIndicationResponseMessage">
+		<wsdl:part name="response" element="types:publishProcessIndicationResponse"/>
+	</wsdl:message>
+	<wsdl:message name="ReturnValue">
+		<wsdl:part name="response" element="types:ReturnValue"/>
+	</wsdl:message>
+	<wsdl:message name="unused">
+    </wsdl:message>
+	<wsdl:portType name="AomPort">
+		<wsdl:operation name="unused">
+			<wsdl:documentation>
+				This operation is here only to force gSoap generation of the SOAP header      	
+        	</wsdl:documentation>
+			<wsdl:input message="tns:unused" wsa:Action="unused"/>
+		</wsdl:operation>
+		<wsdl:operation name="DiscoverEx">
+			<wsdl:documentation>
+        		The DiscoverEx operation provides the capability to request discovery of multiple hosts or subnets, or re-discovery of
+                saved subnets. Completion of the discovery request is reported
+        		asynchronously in the form of a DiscoveryComplete message back to the End Point Reference (EPR) specified in the request message.  The
+            	value returned as output should be ignored as it will always be 0 and is here only for tools that expect an XML payload to be returned in order to
+            	consider the request completed.
+        	</wsdl:documentation>
+			<wsdl:input message="tns:DiscoveryExRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/DiscoveryExRequest"/>
+			<wsdl:output message="tns:ReturnValue" wsa:Action="http://www.ca.com/aom/2008/05/DiscoveryExResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="Discover">
+			<wsdl:documentation>
+        		The Discover operation provides the capability to request discovery of a specified host or subnet.  Completion of the discovery request is reported
+        		asynchronously in the form of a DiscoveryComplete message back to the End Point Reference (EPR) URL address specified in the request message.  The
+            value returned as output should be ignored as it will always be 0 and is here only for tools that expect an XML payload to be returned in order to
+            consider the request completed.
+        	</wsdl:documentation>
+			<wsdl:input message="tns:DiscoveryRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/DiscoveryRequest"/>
+			<wsdl:output message="tns:ReturnValue" wsa:Action="http://www.ca.com/aom/2008/05/DiscoveryResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="ManagedElementDiscovered">
+			<wsdl:documentation>
+				The ManagedElementDiscovered operation is reserved for internal purposes only.        		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:ManagedElementDiscoveredMessage" wsa:Action="http://www.ca.com/aom/2008/05/ManagedElementDiscovered"/>
+		</wsdl:operation>
+		<wsdl:operation name="DiscoveryComplete">
+			<wsdl:documentation>
+				The DiscoveryComplete operation occurs asynchronously in response to the requested Discover operation.  Once the discovery process has completed or
+				encountered an error, the AOM web service forwards the discovery results to the EPR specified in the Discover request.          		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:DiscoveryCompleteMessage" wsa:Action="http://www.ca.com/aom/2008/05/DiscoveryComplete"/>
+		</wsdl:operation>
+		<wsdl:operation name="ClassifyManagedElement">
+			<wsdl:documentation>
+				The ClassifyManagedElement operation is reserved for internal purposes only.        		     		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:ClassifyManagedElementRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/ClassifyManagedElementRequest"/>
+			<wsdl:output message="tns:ClassifyManagedElementResponseMessage" wsa:Action="http://www.ca.com/aom/2008/05/ClassifyManagedElementResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="ReconcileManagedElement">
+			<wsdl:documentation>
+				The ReconcileManagedElement operation is reserved for internal purposes only.        		     		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:ReconcileManagedElementRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/ReconcileManagedElementRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="EnrichClassifiedManagedElement">
+			<wsdl:documentation>
+				The EnrichClassifiedManagedElement operation is reserved for internal purposes only.        		     		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:EnrichClassifiedManagedElementRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/EnrichClassifiedManagedElementRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="RegisterExtrinsicMethodGroup">
+			<wsdl:documentation>
+				The RegisterExtrinsicMethodGroup operation is reserved for internal purposes only.        		     		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:RegisterExtrinsicMethodGroupRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/RegisterExtrinsicMethodGroupRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="UnregisterExtrinsicMethodGroup">
+			<wsdl:documentation>
+				The UnregisterExtrinsicMethodGroup operation is reserved for internal purposes only.        		     		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:UnregisterExtrinsicMethodGroupRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/UnregisterExtrinsicMethodGroupRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="CancelDiscovery">
+			<wsdl:documentation>
+            Cancel a discovery request.  Currently only valid for cancel of a discovery via NetworkDiscoveryRequest. 
+            The value returned as output should be ignored as it will always be 0 and is here only for tools that 
+            expect an XML payload to be returned in order to consider the request completed.
+          </wsdl:documentation>
+			<wsdl:input message="tns:CancelDiscoveryRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/CancelDiscoveryRequest"/>
+			<wsdl:output message="tns:ReturnValue" wsa:Action="http://www.ca.com/aom/2008/05/CancelDiscoveryResponse"/>
+		</wsdl:operation>
+		<wsdl:operation name="CancelDiscoveryComplete">
+			<wsdl:documentation>
+				The CancelDiscoveryComplete operation occurs asynchronously in response to the requested Cancel operation.  Once the cancel process has completed or
+				encountered an error, the AOM web service forwards the cancel results to the EPR specified in the Cancel request.          		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:CancelDiscoveryCompleteMessage" wsa:Action="http://www.ca.com/aom/2008/05/CancelDiscoveryComplete"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteNetworkDiscovery">
+			<wsdl:documentation>
+                The delete operation requests deletion of the specified CA_NetworkDiscoveryRequest.
+            </wsdl:documentation>
+			<wsdl:input message="tns:DeleteNetworkDiscoveryRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/DeleteNetworkDiscoveryRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteNetworkDiscoveryRequestComplete">
+			<wsdl:documentation>
+				Occurs asynchronously in response to the requested Delete operation.  Once the delete process has completed or
+				encountered an error, the AOM web service forwards the delete results to the EPR specified in the Delete request.          		
+        	</wsdl:documentation>
+			<wsdl:input message="tns:DeleteNetworkDiscoveryRequestCompleteMessage" wsa:Action="http://www.ca.com/aom/2008/05/DeleteNetworkDiscoveryRequestComplete"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeletingManagedElement">
+			<wsdl:documentation>
+                The operation notifies all the data connectors that the ManagedElement is about to be deleted.
+            </wsdl:documentation>
+			<wsdl:input message="tns:DeletingManagedElementRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/DeletingManagedElementRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteManagedElementComplete">
+			<wsdl:documentation>
+                The operation notifies all the data connectors that the ManagedElement has been deleted successfully.
+            </wsdl:documentation>
+			<wsdl:input message="tns:DeleteManagedElementCompleteRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/DeleteManagedElementCompleteRequest"/>
+		</wsdl:operation>
+		<wsdl:operation name="publishProcessIndication">
+			<wsdl:documentation>
+                The operation publishes an Indication.
+            </wsdl:documentation>
+			<wsdl:input message="tns:publishProcessIndicationRequestMessage" wsa:Action="http://www.ca.com/aom/2008/05/publishProcessIndication"/>
+			<wsdl:output message="tns:publishProcessIndicationResponseMessage" wsa:Action="http://www.ca.com/aom/2008/05/publishProcessIndication"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="AomBinding" type="tns:AomPort">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="unused">
+			<soap:operation soapAction="unused"/>
+			<!-- This operation is here only to force gSoap generation of the SOAP header -->
+			<wsdl:input>
+				<soap:header message="tns:ActionMessage" part="Header" use="literal"/>
+				<soap:header message="tns:MessageIDMessage" part="Header" use="literal"/>
+				<soap:header message="tns:ToMessage" part="Header" use="literal"/>
+				<soap:header message="tns:FromMessage" part="Header" use="literal"/>
+				<soap:header message="tns:FaultToMessage" part="Header" use="literal"/>
+				<soap:header message="tns:RelatesToMessage" part="Header" use="literal"/>
+				<soap:header message="tns:ReplyToMessage" part="Header" use="literal"/>
+				<soap:header message="tns:IdentifierMessage" part="Header" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DiscoverEx">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DiscoveryExRequest"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="Discover">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DiscoveryRequest"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ManagedElementDiscovered">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/ManagedElementDiscovered"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DiscoveryComplete">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DiscoveryComplete"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="ClassifyManagedElement">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/ClassifyManagedElement"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ReconcileManagedElement">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/ReconcileManagedElement"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="EnrichClassifiedManagedElement">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/EnrichClassifiedManagedElement"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="RegisterExtrinsicMethodGroup">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/RegisterExtrinsicMethodGroup"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="UnregisterExtrinsicMethodGroup">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/UnregisterExtrinsicMethodGroup"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="CancelDiscovery">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/CancelDiscovery"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CancelDiscoveryComplete">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/CancelDiscoveryComplete"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteNetworkDiscovery">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DeleteNetworkDiscoveryRequest"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteNetworkDiscoveryRequestComplete">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DeleteNetworkDiscoveryRequestComplete"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DeletingManagedElement">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DeletingManagedElementRequest"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="DeleteManagedElementComplete">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/DeleteManagedElementCompleteRequest"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+		</wsdl:operation>
+		<wsdl:operation name="publishProcessIndication">
+			<soap:operation soapAction="http://www.ca.com/aom/2008/05/publishProcessIndication"/>
+			<wsdl:input>
+				<soap:header message="tns:Header" part="Security" use="literal"/>
+				<soap:header message="tns:InternationalMessage" part="Header" use="literal"/>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="aom">
+		<wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Automation Object Model</wsdl:documentation>
+		<wsdl:port name="aom" binding="tns:AomBinding">
+			<soap:address location="http://localhost:80/dpm/aom"/>
+		</wsdl:port>
+	</wsdl:service>
+	<!-- ***************************************************************************
+	*     Schema Types Definition Section 
+	*****************************************************************************-->
+	<!-- ***************************************************************************
+	*     Message Definition Section 
+	*****************************************************************************-->
+	<!-- *** SOAP Message Headers *** -->
+	<!-- *** AOM Messages *** -->
+	<!-- ***************************************************************************
+	*     Port/Operations Definition Section 
+	*****************************************************************************-->
+	<!-- ***************************************************************************
+	*     SOAP Bindings Definition Section 
+	*****************************************************************************-->
+	<!-- ***************************************************************************
+	*     Service Definition Section 
+	*****************************************************************************-->
+</wsdl:definitions>

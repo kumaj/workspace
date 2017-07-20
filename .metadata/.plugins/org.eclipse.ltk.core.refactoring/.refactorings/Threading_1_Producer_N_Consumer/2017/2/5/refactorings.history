@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 3 elements to &apos;Threading_1_Producer_N_Consumer/src&apos;&#x0D;&#x0A;- Original project: &apos;Threading_1_Producer_N_Consumer&apos;&#x0D;&#x0A;- Destination element: &apos;Threading_1_Producer_N_Consumer/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     Producer.java&#x0D;&#x0A;     Consumer.java&#x0D;&#x0A;     ProducerConsumerTest.java&#x0D;&#x0A;- Update references to refactored element" description="Move files" destination="/src" element1="Producer.java" element2="Consumer.java" element3="ProducerConsumerTest.java" files="3" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1486130194415" units="0" version="1.0"/>
+</session>

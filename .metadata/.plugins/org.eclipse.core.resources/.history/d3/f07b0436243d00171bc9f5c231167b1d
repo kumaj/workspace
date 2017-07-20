@@ -1,0 +1,9 @@
+import java.util.ArrayList;
+
+
+public class Difference {
+    public int solve(ArrayList<Integer> A, ArrayList<Integer> B, ArrayList<Integer> C) {
+    	if(A.size() == 0 || B.size() == 0 || C.size() == 0) 
+    		return -1; // Boundary case
+    }
+}

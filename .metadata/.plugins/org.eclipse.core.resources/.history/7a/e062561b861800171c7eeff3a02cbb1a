@@ -1,0 +1,43 @@
+import java.util.HashMap;
+
+/**
+ * https://www.interviewbit.com/problems/window-string/
+ * Given a string S and a string T, find the minimum window in S which will contain all the characters in T in linear time complexity.
+Note that when the count of a character C in T is N, then the count of C in minimum window in S should be at least N.
+
+Example :
+
+S = "ADOBECODEBANC"
+T = "ABC"
+Minimum window is "BANC"
+ * @author kumaj04
+ *
+ */
+public class WindowString {
+	public String minWindow(String S, String T) {
+		int i = 0;
+		int j = 0;
+		int size = S.length();
+		// first of all put all the elements of T into hash map
+		int targetSize = T.length();
+		HashMap<Character, Integer> targetMap = new HashMap<Character, Integer>();
+		char[] targetChars = T.toCharArray();
+		int charCount = 0;
+		for(int k = 0; k < targetChars.length; k++) {
+			if(targetMap.containsKey(targetChars[k])) {
+				
+			} else {
+				targetMap.put(targetChars[i], targetChars[k]);	
+			}
+		}
+		while(i < size) {
+			j = i;
+		}
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}

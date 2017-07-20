@@ -1,0 +1,1081 @@
+package com.ca.tdm.jobengine.service;
+
+import static org.quartz.JobBuilder.newJob;
+import static org.quartz.TriggerBuilder.newTrigger;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+
+import javax.persistence.NoResultException;
+import javax.servlet.http.HttpServletResponse;
+
+import org.quartz.JobDataMap;
+import org.quartz.JobDetail;
+import org.quartz.ObjectAlreadyExistsException;
+import org.quartz.Scheduler;
+import org.quartz.SchedulerException;
+import org.quartz.SimpleTrigger;
+import org.quartz.Trigger;
+import org.quartz.TriggerKey;
+import org.quartz.impl.triggers.SimpleTriggerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.client.RestTemplate;
+
+import com.ca.tdm.common.exception.BadRequestException;
+import com.ca.tdm.common.exception.ResourceNotFoundException;
+import com.ca.tdm.constants.TDMConstants;
+import com.ca.tdm.jobengine.JobEngineServiceConfiguration;
+import com.ca.tdm.jobengine.bean.Job;
+import com.ca.tdm.jobengine.bean.JobResponse;
+import com.ca.tdm.jobengine.bean.JobStatusRequest;
+import com.ca.tdm.jobengine.bean.ProjectInfo;
+import com.ca.tdm.jobengine.bean.ProjectSecurity;
+import com.ca.tdm.jobengine.constants.JobEngineConstants;
+import com.ca.tdm.jobengine.constants.JobStatus;
+import com.ca.tdm.jobengine.jpa.GtrepJobInformation;
+import com.ca.tdm.jobengine.jpa.GtrepProject;
+import com.ca.tdm.jobengine.jpa.JobInformationRepository;
+import com.ca.tdm.jobengine.jpa.JobsRepository;
+import com.ca.tdm.jobengine.jpa.ProjectRepository;
+import com.ca.tdm.jobengine.util.JobEngineSeqenceGenerator;
+import com.ca.tdm.jobengine.util.JobMailerUtil;
+import com.ca.tdm.security.SecurityContext;
+import com.ca.tdm.security.SecurityUtil;
+import com.ca.tdm.security.TDMClientHttpRequestFactory;
+import com.ca.tdm.utils.TDMUtils;
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+
+/*
+ * This is the service class of JobEngineservice. 
+ * aurthor:srinivasa.vangala
+ */
+@Service
+public class JobEngineService {
+	@Autowired
+	private Scheduler scheduler;// quartz scheduler
+
+	@Autowired
+	private JobInformationRepository jobrepo;
+	
+	@Autowired
+	JobMailerUtil jobMailerUtil;
+	
+	@Autowired
+	JobsRepository jobsRepository;
+	
+	@Autowired
+	JobEngineServiceConfiguration jobEngineServiceConfiguration;
+
+	@Autowired
+	private ProjectRepository projectrepo;
+	
+	@Autowired
+	JobEngineSeqenceGenerator seqGen;
+	
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+
+	/*
+	 * This method is used to save the single Job Information in database and
+	 * create trigger for the Job and schedule the Job
+	 */
+	/**
+	 * Save the single Job Information in database and create trigger for the
+	 * Job and schedule the Job
+	 * 
+	 * @param jobinformation
+	 * @param securityContext 
+	 * @return
+	 * @throws TDMJobException
+	 * @throws SchedulerException
+	 */
+	@Transactional
+	public GtrepJobInformation submitSingleJob(Job jobinformation, SecurityContext securityContext) throws SchedulerException {
+		GtrepJobInformation job = saveJobInfoinDatabase(jobinformation, null,securityContext);
+		submitIndividualJob(job, jobinformation.getParameters(), false);
+		return job;
+
+	}
+
+	/*
+	 * This method is used to save the Job Information in database. in case of
+	 * Group, the Group related information, we need to save group id in child.
+	 */
+	/**
+	 * Save the Job Information in database. in case of Group, the Group related
+	 * information, we need to save group id in child.
+	 * 
+	 * @param jobinformation
+	 * @param groupInfo
+	 * @param securityContext 
+	 * @return
+	 * @throws SchedulerException 
+	 * @throws TDMJobException
+	 */
+	private GtrepJobInformation saveJobInfoinDatabase(Job jobinformation, GtrepJobInformation groupInfo, SecurityContext securityContext)
+			throws SchedulerException {
+		GtrepJobInformation job = new GtrepJobInformation();
+		job.setJobName(jobinformation.getName());
+		job.setJobId(seqGen.generateSEQ_PJ());
+		job.setJobDesc(jobinformation.getDescription());
+		job.setEmail(jobinformation.getEmail());
+		job.setJobType(jobinformation.getType());
+		job.setOrigin(jobinformation.getOrigin());
+		job.setCreatedBy(jobinformation.getCreatedBy());
+		job.setStatus(JobStatus.NOT_STARTED);
+		job.setProjectId(jobinformation.getProjectId());
+		try {
+			jobinformation.getParameters().put(TDMConstants.HEADER_REFRESH_TOKEN,SecurityUtil.getUserAccessKey(securityContext.getUserToken()));
+		} catch (Exception e) {
+			log.error("Unable to save user token in job param map. Exception message is " + e.getMessage());
+		}
+		job.setData(new Gson().toJson(jobinformation.getParameters()));
+		Date scheduleTime = null;
+		long schtime = Long.parseLong(jobinformation.getScheduledTime());
+		scheduleTime = new Date(schtime);
+		job.setScheduledTime(new Timestamp(scheduleTime.getTime()));
+		if (groupInfo != null){
+			job.setParentId(groupInfo.getJobId());
+			job.setOrigin(groupInfo.getOrigin());
+		}
+		job = jobrepo.save(job);
+		return job;
+	}
+
+	/*
+	 * This method is used to load the class and create the Object for the
+	 * class. Use the class object in Quartz job creation. once Job is created,
+	 * in case of Group job, we save trigger date as future date (like 10
+	 * years),create a trigger and schedule. in case of single Job, we save
+	 * scheduled time, create a trigger and schedule.
+	 */
+	/**
+	 * load the class and create the Object for the class. Use the class object
+	 * in Quartz job creation. once Job is created, in case of Group job, we
+	 * save trigger date as future date (like 10 years),create a trigger and
+	 * schedule. in case of single Job, we save scheduled time, create a trigger
+	 * and schedule.
+	 * 
+	 * @param job
+	 * @param linkedHashMap
+	 * @param isGroupDefined
+	 * @throws SchedulerException
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void submitIndividualJob(GtrepJobInformation job, Map linkedHashMap,
+			boolean isGroupDefined) throws SchedulerException {
+		JobDataMap newJobDataMap = new JobDataMap();
+		/*if (linkedHashMap != null)
+			newJobDataMap.putAll(linkedHashMap);*/
+		String triggerIdentity = job.getJobName() + "_&&_&&_" + job.getJobId();
+		JobDetail quartzJob = null;
+		String resourceName = JobEngineConstants.JOBINFO_PROPERTIES; // could also be a
+															// constant
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		Properties props = new Properties();
+		try {
+			InputStream resourceStream = loader.getResourceAsStream(resourceName);
+			props.load(resourceStream);
+
+			String className = (String) props.get(job.getJobType());
+			Class jobClass = Class.forName(className);
+
+			quartzJob = newJob(jobClass).withIdentity(triggerIdentity).usingJobData(newJobDataMap).storeDurably()
+					.requestRecovery(true).build();
+		} catch (Exception e) {
+			throw new SchedulerException("There is a problem with class object creation--" + e);
+		}
+		SimpleTrigger trigger = null;
+		if (isGroupDefined) {
+			GregorianCalendar cal = new GregorianCalendar();
+			cal.setTime(job.getScheduledTime());
+			cal.add(Calendar.DATE, +50000);
+			trigger = (SimpleTrigger) newTrigger().withIdentity(triggerIdentity).startAt(cal.getTime())
+					.forJob(quartzJob.getKey()).build();
+		} else
+			trigger = (SimpleTrigger) newTrigger().withIdentity(triggerIdentity).startAt(job.getScheduledTime())
+					.forJob(quartzJob.getKey()).build();
+
+		scheduleJobWithTriggerIfNotPresent(quartzJob, trigger);
+	}
+
+	/*
+	 * This method is used to schedule with trigger
+	 */
+	/**
+	 * Used to schedule with trigger
+	 * 
+	 * @param job
+	 * @param scheduler
+	 * @param trigger
+	 * @throws SchedulerException
+	 */
+	private void scheduleJobWithTriggerIfNotPresent(JobDetail job, Trigger trigger)
+			throws SchedulerException {
+		if (!scheduler.checkExists(job.getKey()) && !scheduler.checkExists(trigger.getKey())) {
+			try {
+				scheduler.scheduleJob(job, trigger);
+			} catch (ObjectAlreadyExistsException existsExc) {
+				throw new SchedulerException("There is  already scheduled such job/trigger. " + job.getKey() + " : " + trigger.getKey());
+			}
+		}
+	}
+
+	/*
+	 * This method is used to submit the groupJob. the type of group Job is
+	 * "groupJob". in case of date is not valid, we throw exception
+	 */
+	/**
+	 * Submit the groupJob. the type of group Job is "groupJob". in case of date
+	 * is not valid, we throw exception
+	 * @param securityContext 
+	 * 
+	 * @param jobInfo
+	 * @return
+	 * @throws TDMJobException
+	 * @throws SchedulerException
+	 */
+	@Transactional(isolation=Isolation.READ_UNCOMMITTED)
+	public GtrepJobInformation submitGroupJob(Job jobinformation, SecurityContext securityContext) throws SchedulerException {
+
+		GtrepJobInformation groupInformation = new GtrepJobInformation();
+		// groupInformation.setJobName(jobinformation.getName());
+		groupInformation.setJobName(jobinformation.getName());
+		groupInformation.setJobId(seqGen.generateSEQ_PJ());
+		groupInformation.setJobDesc(jobinformation.getDescription());
+		groupInformation.setCreatedBy(jobinformation.getCreatedBy());
+		groupInformation.setJobType(JobEngineConstants.GROUP_JOB);
+		groupInformation.setStatus(JobStatus.NOT_STARTED);
+		groupInformation.setEmail(jobinformation.getEmail());
+		groupInformation.setOrigin(jobinformation.getOrigin());
+		groupInformation.setProjectId(jobinformation.getProjectId());
+		Date scheduleTime = null;
+		try {
+			long schtime = Long.parseLong(jobinformation.getScheduledTime());
+			scheduleTime = new Date(schtime);// need to
+		} catch (Exception e) {
+
+			log.debug("The scheduled entered date is not valid-- " + jobinformation.getScheduledTime());
+			throw new SchedulerException("The scheduled entered date is not valid-- " + jobinformation.getScheduledTime());
+			// we have already set default value to today's date.
+		}
+		groupInformation.setScheduledTime(new Timestamp(scheduleTime.getTime()));
+		groupInformation.setParentId(0);
+		groupInformation = jobrepo.save(groupInformation);
+		GtrepJobInformation previousJob = null;
+		//Get the information about the child jobs
+		for (int i = 0; i < jobinformation.getJobs().size(); i++) {
+			Job jobinfo = jobinformation.getJobs().get(i);
+			jobinfo.setProjectId(jobinformation.getProjectId());
+			jobinfo.setName(jobinformation.getName());
+			jobinfo.setEmail(jobinformation.getEmail());
+			jobinfo.setOrigin(jobinformation.getOrigin());
+			jobinfo.setDescription(jobinfo.getDescription());
+			jobinfo.setScheduledTime(jobinformation.getScheduledTime());
+			//save the child information along with its parent job(groupInformation)
+			GtrepJobInformation job = saveJobInfoinDatabase(jobinfo, groupInformation,securityContext);
+
+			// Submit the individual job
+			submitIndividualJob(job, jobinfo.getParameters(), true);
+			if (i == 0) {
+				groupInformation.setNextJobId(job.getJobId());
+				groupInformation = jobrepo.save(groupInformation);
+			}
+			if (previousJob != null) {
+				previousJob.setNextJobId(job.getJobId());
+				jobrepo.save(previousJob);
+			}
+			previousJob = job;
+		}
+		// Now submit the group job
+		submitIndividualJob(groupInformation, null, false);
+		return groupInformation;
+	}
+
+	/*
+	 * This method is used to retrieve the status of single Job/ group Job. In
+	 * case of group job, we retrieve status of child jobs along with group job.
+	 */
+	/**
+	 * retrieve the status of single Job/ group Job. In case of group job, we
+	 * retrieve status of child jobs along with group job.
+	 * 
+	 * @param jobId
+	 * @return
+	 * @throws SchedulerException 
+	 */
+	public Job getChildJobs(int jobId) throws SchedulerException {
+		GtrepJobInformation job;
+		try{
+			job = jobrepo.findByJobId(jobId);
+		}catch(NoResultException e){
+			return null;
+		}
+		if(job==null)
+			return null;
+		
+		GtrepProject projobj = (GtrepProject) projectrepo.findByProjId(Long.parseLong(job.getProjectId()+""));
+		Job result = fillResultObject(job);
+
+		if (projobj != null)
+			result.setProjectName(projobj.getProjName());
+		if(job.getStartTime()!=null && job.getEndTime()!=null){
+			result.setDuration(job.getEndTime().getTime()-job.getStartTime().getTime());
+		}
+
+		if (job.getJobType() != null && job.getJobType().equalsIgnoreCase(JobEngineConstants.GROUP_JOB)) {
+			List<GtrepJobInformation> jobsList = (List<GtrepJobInformation>) jobrepo.findByParentId(job.getJobId());
+			for (GtrepJobInformation jobInformation : jobsList) {
+				Job jobResult = fillResultObject(jobInformation);
+				jobResult.setCreatedBy(job.getCreatedBy());
+				result.getJobs().add(jobResult);
+			}
+		}
+		return result;
+	}
+
+	/*
+	 * This method is used to retrieve the artifact location from database.
+	 */
+	/**
+	 * To retrieve the artifact location from database.
+	 * @param jobId
+	 * @return
+	 * @throws Exception
+	 */
+	public String getArtifactLocation(int jobId) throws Exception {
+		String artifactLocation = null;
+		GtrepJobInformation jobInfo = jobrepo.findByJobId(jobId);
+
+		if (null != jobInfo) {
+			if (null == jobInfo.getArtifactLocation() || jobInfo.getArtifactLocation().isEmpty()) {
+				throw new Exception("Artifact Location is either null or empty");
+			} else {
+				artifactLocation = jobInfo.getArtifactLocation();
+			}
+
+		} else {
+			log.error("Job not found with the id :" + jobId);
+			throw new ResourceNotFoundException("Job not found with the id :" + jobId);
+		}
+		return artifactLocation;
+	}
+
+	public InputStream getStream(String artifactLocation) throws FileNotFoundException {
+
+		InputStream in = new FileInputStream(artifactLocation);
+
+		return in;
+
+	}
+
+	/*
+	 * This method is used to download artifact when user make rest call to
+	 * download artifact.
+	 */
+	/**
+	 * Download artifact from temporary location
+	 * @param response
+	 * @param jobId
+	 */
+	public ResponseEntity<InputStreamResource> downloadArtifact(HttpServletResponse response, int jobId) {
+		GtrepJobInformation job;
+		try{
+			job = jobrepo.findByJobId(jobId);
+		}catch(NoResultException e){
+			throw new NoResultException("Job id "+jobId +" doen't exists");
+		}
+		if(job==null)
+			throw new NoResultException("Job id "+jobId +" doen't exists");
+		
+
+		String artifactLocation = job.getArtifactLocation();
+		InputStream fis = null;
+
+		try {
+			File zipfile = new File(artifactLocation);
+			HttpHeaders respHeaders = new HttpHeaders();
+            respHeaders.setContentType(new MediaType("application","zip"));
+            respHeaders.setContentLength(zipfile.length());
+            respHeaders.setContentDispositionFormData("attachment", jobId+".zip");
+            fis= new FileInputStream(zipfile);
+              InputStreamResource isr = new InputStreamResource(new FileInputStream(zipfile));
+              return new ResponseEntity<InputStreamResource>(isr, respHeaders, HttpStatus.OK);
+
+
+		} catch (IOException e) {
+			log.error(" Error while reading the file" + artifactLocation + " Exception message is " + e.getMessage());
+		} finally {
+			if (null != fis) {
+				try {
+					fis.close();
+				} catch (IOException e) {
+					log.error(" Error while closing the input stream " + e.getMessage());
+				}
+			}
+		}
+		;
+		return null;
+
+	}
+
+
+
+	public void validateInputParameters(Job jobInfo) throws BadRequestException {
+		if (jobInfo.getProjectId()<=0)
+			throw new BadRequestException("Invalid input parameters : project id is required ");
+		if (jobInfo.getName() == null)
+			throw new BadRequestException("Invalid input parameters : job name is required ");
+		if (jobInfo.getType() == null)
+			throw new BadRequestException("Invalid input parameters : job type is required ");
+		if (jobInfo.getOrigin() == null)
+			throw new BadRequestException("Invalid input parameters : origin is required ");
+
+		GtrepProject job;
+		try {
+			job = projectrepo.findByProjId(Long.parseLong(jobInfo.getProjectId()+""));
+			if (job == null)
+				throw new BadRequestException(
+						"Invalid input parameters : project does not exists with id -- " + jobInfo.getProjectId());
+
+			if (jobInfo.getType().equalsIgnoreCase(JobEngineConstants.GROUP_JOB)) {
+				if (jobInfo.getJobs() == null || jobInfo.getJobs().isEmpty())
+					throw new BadRequestException("Invalid input parameters : child jobs should not be empty");
+
+				for (int i = 0; i < jobInfo.getJobs().size(); i++) {
+					if (jobInfo.getJobs().get(i).getType() == null)
+						throw new BadRequestException("Invalid input parameters : child job type is required ");
+				}
+			}
+		} catch (InvalidDataAccessResourceUsageException ie) {
+			throw new BadRequestException(
+					"Invalid input parameters : error while retrieving project id-- " + jobInfo.getProjectId());
+		} catch (Exception e) {
+
+			throw e;
+		}
+		try {
+			Long.parseLong(jobInfo.getScheduledTime());
+		} catch (Exception e) {
+			throw new BadRequestException("Invalid input parameters : scheduled time is not correct ");
+		}
+		try {
+			String resourceName = JobEngineConstants.JOBINFO_PROPERTIES; // could also be
+																// a
+			// constant
+			ClassLoader loader = Thread.currentThread().getContextClassLoader();
+			Properties props = new Properties();
+
+			InputStream resourceStream = loader.getResourceAsStream(resourceName);
+			props.load(resourceStream);
+
+			String className = (String) props.get(jobInfo.getType());
+			if(className== null)
+			throw new BadRequestException("Invalid input parameters : there is no class associated for type: "+jobInfo.getType());
+			Class.forName(className);
+		} catch (Exception e) {
+			throw new BadRequestException("Invalid input parameters : class object creation failed for type : "+jobInfo.getType());
+		}
+	}
+
+	/**
+	 * 
+	 * @param assignedProj
+	 * @param isAdmin
+	 * @return
+	 */
+	private List<Long> getProjectIds(List<ProjectSecurity> assignedProj, boolean isAdmin) {
+		List<Long> projects = new ArrayList<>();
+		if (isAdmin) {
+			for (ProjectSecurity projSec : assignedProj) {
+				if (projSec.getIsAdmin()) {
+					projects.add(projSec.getProjId());
+				}
+			}
+		}else{
+			for (ProjectSecurity projSec : assignedProj) {
+				if (!projSec.getIsAdmin()) {
+					projects.add(projSec.getProjId());
+				}
+			}
+
+
+		}
+		return projects;
+	}	
+
+	/**
+	 * retrieve projects on which user have permission
+	 * @param userId
+	 * @return
+	 */
+	private List<ProjectSecurity> getAssignedProjects(Long userId){
+		List<ProjectSecurity> assignedProj  = new ArrayList<>();
+		List<?>  assignedProjData =jobsRepository.getProjectSecurity(userId);
+		for (Object projectSecurityData : assignedProjData) {
+			ProjectSecurity projSec = new ProjectSecurity((Object[]) projectSecurityData);
+			assignedProj.add(projSec);
+		}
+		return assignedProj;
+	}
+	
+	/**
+	 * update projects to appropriate list base on user permission on the project. Only admin and non admin permissions are supported
+	 * @param userId
+	 * @param projectId
+
+	 */
+	private Map<String, List<Long>> getProjectsIdsByPermissions(long userId, Long projectId) {
+		long start = System.currentTimeMillis();
+		List<Long> adminProjIdList = new ArrayList<>();
+		List<Long> nonAdminProjIdList = new ArrayList<>();
+		List<ProjectSecurity> assignedProj =getAssignedProjects(userId);
+		adminProjIdList.addAll(getProjectIds(assignedProj, true));
+		nonAdminProjIdList.addAll(getProjectIds(assignedProj, false));
+		if(projectId!=null){
+			if(adminProjIdList.contains(projectId)){
+				adminProjIdList.clear();
+				adminProjIdList.add(projectId);
+				nonAdminProjIdList.clear();
+
+			}else if(nonAdminProjIdList.contains(projectId)){
+				nonAdminProjIdList.clear();
+				nonAdminProjIdList.add(projectId);
+				adminProjIdList.clear();
+			}
+
+		}
+		Map<String, List<Long>> projIdsMap= new HashMap<>();
+		projIdsMap.put(ADMIN_PERMISSION, adminProjIdList);
+		projIdsMap.put(NON_ADMIN_PERMISSION, nonAdminProjIdList);
+		long end = System.currentTimeMillis();
+		log.debug("Loading Project.permissions in "+(end-start)+" ms");
+		return projIdsMap;
+	}
+	
+	
+	/**
+	 * retrieve the status of single Job/ group Job. In case of group job, we
+	 * retrieve status of child jobs along with group job.
+	 * @param securityContext 
+	 * @param projectId 
+	 * @param pageable 
+	 * @param isRoot 
+	 * @param origin 
+	 * 
+	 * @param jobId
+	 * @return
+	 * @throws SchedulerException 
+	 */
+	public Page<Job> getAllJobs(SecurityContext securityContext, Long projectId, Pageable pageable, String origin) {
+		
+		
+		Page<GtrepJobInformation> results = null;
+		List<Job> jobResult = new ArrayList<Job>();
+		try{
+			JobEngineInMemoryPaginator paginator = new JobEngineInMemoryPaginator(pageable);
+			pageable= paginator.getPageReqest();
+		List<GtrepJobInformation> jobList;
+		String userName = securityContext.getUserNamee();
+		
+			Long userId=securityContext.getUserId().longValue();
+			
+			if(isGlobalAdmin(securityContext.getUserId().longValue()))
+			{
+				if(projectId == null && origin == null){
+					results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable);
+				}
+				else if(projectId == null && origin != null){
+					results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable,origin.toLowerCase());
+				}
+				else if(projectId != null && origin != null){
+					results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable,origin.toLowerCase(),projectId);
+				}
+			}
+			else
+			{
+				Map<String, List<Long>> projIdsMap = getProjectsIdsByPermissions(userId, projectId);
+				long permissionJobsLoadStart = System.currentTimeMillis();
+				boolean isAdminProjIdsExist =!projIdsMap.get(ADMIN_PERMISSION).isEmpty();
+				boolean isNonAdminProjIdsExist =!projIdsMap.get(NON_ADMIN_PERMISSION).isEmpty();
+				
+				if(isAdminProjIdsExist&&isNonAdminProjIdsExist){
+					if(origin == null){
+						results= jobsRepository.listGroupJosbsFilterByProjects(projIdsMap.get(ADMIN_PERMISSION),projIdsMap.get(NON_ADMIN_PERMISSION),userName, pageable);
+					}else{
+						results= jobsRepository.listGroupJosbsFilterByProjects(projIdsMap.get(ADMIN_PERMISSION),projIdsMap.get(NON_ADMIN_PERMISSION),userName, origin, pageable);
+					}
+			
+				}else if(isAdminProjIdsExist){
+					if(origin == null){
+						results= jobsRepository.listGroupJosbsFilterByProjectsAdmin(projIdsMap.get(ADMIN_PERMISSION), pageable);
+					}else{
+						results= jobsRepository.listGroupJosbsFilterByProjectsAdmin(projIdsMap.get(ADMIN_PERMISSION), origin, pageable);
+					}
+				}else if(isNonAdminProjIdsExist){
+					if(origin == null){
+						results= jobsRepository.listGroupJosbsFilterByProjectsNonAdmin(projIdsMap.get(NON_ADMIN_PERMISSION),userName, pageable);
+					}else{
+						results= jobsRepository.listGroupJosbsFilterByProjectsNonAdmin(projIdsMap.get(NON_ADMIN_PERMISSION),userName, origin, pageable);
+					}
+				}else{
+					log.debug("no jobs found");
+					results =new PageImpl<GtrepJobInformation>(new ArrayList<>());
+				}
+
+			}
+			
+		/*	if(projectId == null && origin == null)
+			{
+				if(isGlobalAdmin(securityContext.getUserId().longValue()))
+					results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable);
+				else
+					results  = (PageImpl) jobsRepository.listGroupJosbsforUser(pageable, userName);
+			}
+			else if(projectId == null && origin != null)
+			{
+			if(isGlobalAdmin(securityContext.getUserId().longValue()))
+			results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable,origin.toLowerCase());
+			else
+				results  = (PageImpl) jobsRepository.listGroupJosbsforUser(pageable, userName,origin.toLowerCase());
+			}
+			else if(projectId != null && origin != null)
+			{
+				if(isGlobalAdmin(securityContext.getUserId().longValue()))
+					results  = (PageImpl) jobsRepository.listGroupJosbsGlobalAdmin(pageable,origin.toLowerCase(),projectId);
+				else
+					results  = (PageImpl) jobsRepository.listGroupJosbsforUser(pageable, userName,origin.toLowerCase(),projectId);	
+			} */
+				
+			//List<Long> projectIdList =getUserProjects(securityContext.getUserId().longValue());
+			jobResult = 	fillJobResult(results.getContent());
+			
+		}catch(NoResultException e){
+			log.info("Problem in retrieving the jobs from database"+e.getMessage());
+			jobResult = new ArrayList<Job>();
+		}
+		catch(Exception e){
+			log.error("Problem in retrieving the jobs from database"+e.getMessage());
+			throw e;
+		}
+		
+		Page results1 = new PageImpl(jobResult,pageable,results.getTotalElements()); 
+		return results1;
+	}
+
+	
+	/*public ArrayList<String> getProjectsIdsForUser(SecurityContext securityContext) {
+
+		RestTemplate restTemplate = new RestTemplate();
+		final TDMClientHttpRequestFactory clientHttpRequestFactory =
+                new TDMClientHttpRequestFactory();
+		restTemplate.setRequestFactory(clientHttpRequestFactory);
+
+
+		String url = jobEngineServiceConfiguration.getTdmProjectServiceEndpoint()+"/api/ca/v1/projectIds";
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Authorization", "Bearer " + securityContext.getUserToken());
+
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		ResponseEntity<ArrayList> response = restTemplate
+				.exchange(
+						url,
+						HttpMethod.GET, entity, ArrayList.class);
+		ArrayList<String> connectionProfile = response.getBody();
+		return connectionProfile;
+	}*/
+
+
+
+	private static final String ADMIN_PERMISSION = "ADMIN_PERMISSION";
+	private static final String NON_ADMIN_PERMISSION = "NON_ADMIN_PERMISSION";
+
+
+	
+
+	/**
+	 * List root level jobs on which user have permissions
+	 */
+	public Page<Job> listJosbs(SecurityContext securityContext, boolean isRoot, Long projectId, Pageable pageable,String origin){
+		if(!isRoot){
+			throw new HttpServerErrorException(HttpStatus.NOT_IMPLEMENTED, "Jobs triggered by another job is not permitted for listing. send parameter isRoot=true");
+		}
+		long start = System.currentTimeMillis();
+		JobEngineInMemoryPaginator paginator = new JobEngineInMemoryPaginator(pageable);
+		pageable= paginator.getPageReqest();
+
+
+		Page<Job> results = null;
+
+		Long userId=securityContext.getUserId().longValue();
+		String userName =securityContext.getUserNamee();
+
+			results= getAllJobs(securityContext, projectId, pageable,origin);
+
+		/*boolean isGlobalAdmin = isGlobalAdmin(securityContext.getUserId().longValue());
+
+		if(isGlobalAdmin){
+			if(projectId==null){
+				long allJobsLoadStart = System.currentTimeMillis();
+				log.debug(userName+" is global admin returning all jobs");
+				try {
+					results= getAllJobs(securityContext, isRoot, pageable);
+				} catch (SchedulerException e) {
+				}
+				long allJobsLoadEnd = System.currentTimeMillis();
+				log.debug("retrieving all jobs in "+(allJobsLoadEnd-allJobsLoadStart)+" ms");
+			}else{
+				//listGroupJosbsGlobalAdminFilterByProjects
+				long allJobsLoadStart = System.currentTimeMillis();
+				log.debug(userName+" is global admin returning all jobs filter by project id");
+				results= jobEngineRepository.listGroupJosbsGlobalAdminFilterByProjects(projectId, pageable);
+				long allJobsLoadEnd = System.currentTimeMillis();
+				log.debug("retrieving all jobs in filter by project Id"+(allJobsLoadEnd-allJobsLoadStart)+" ms");
+
+
+		}
+		}*/
+//		long updateStateStart = System.currentTimeMillis();
+////		updateRequestFields(results.getContent());
+//		long updateStatEnd = System.currentTimeMillis();
+//		log.debug("updated status for "+results.getContent().size()+" jobs in "+(updateStatEnd-updateStateStart)+" ms");
+		results =paginator.apply(results);
+		long end = System.currentTimeMillis();
+		log.debug("time loading jobs "+(end-start) +" ms");
+		return results;
+	}
+
+	
+	private List<Job> fillJobResult(List<GtrepJobInformation> jobList){
+		ArrayList<Job> resultList =new ArrayList<Job>();
+
+//		thisThread = Thread.currentThread();
+		
+		
+		for (GtrepJobInformation job : jobList) {
+			
+		GtrepProject projobj = (GtrepProject) projectrepo.findByProjId(Long.parseLong(job.getProjectId()+""));
+		if(projobj==null)continue;
+		//if(!projectIdList.contains(projobj.getProjId().intValue()))continue;
+		Job result = fillResultObject(job);
+		if (projobj != null)
+			result.setProjectName(projobj.getProjName());
+//		if (job.getJobType() != null && job.getJobType().equalsIgnoreCase(JobEngineConstants.GROUP_JOB)) {}
+		resultList.add(result);
+	
+		
+		}
+		return resultList;
+	}
+
+	private Job fillResultObject(GtrepJobInformation job) {
+		Job result = new Job();
+		result.setName(job.getJobName());
+		result.setJobId(job.getJobId());
+		result.setParentId(job.getParentId()); 
+		result.setType(job.getJobType());
+		result.setDescription(job.getJobDesc());
+		result.setCreatedBy(job.getCreatedBy());
+		if(job.getStartTime()!=null)
+		result.setStartTime(/*TDMUtils.convertTimestampToISO8601Format(job.getStartTime())*/job.getStartTime().toString());
+		result.setOrigin(job.getOrigin());
+		result.setEmail(job.getEmail());
+		if(job.getEndTime()!=null)
+		result.setEndTime(/*TDMUtils.convertTimestampToISO8601Format(job.getEndTime())*/job.getEndTime().toString());
+		result.setScheduledTime(TDMUtils.convertTimestampToISO8601Format(job.getScheduledTime()));
+		result.setStatus(job.getStatus());
+		result.setCreatedBy(job.getCreatedBy());
+		result.setType(job.getJobType());
+		result.setStatusMessage(job.getStatusmessage());
+		result.setArtifactLocation(job.getArtifactLocation());
+		result.setRunningStatus(job.getRunningStatus());
+		if(job.getStartTime()!=null && job.getEndTime()!=null)
+			result.setDuration(job.getEndTime().getTime()-job.getStartTime().getTime());
+		HashMap<String, String> outputParamMap = fillAdditionalParameters(job);
+		result.setParameters(outputParamMap);
+		return result;
+	}
+
+
+	private HashMap<String, String> fillAdditionalParameters(GtrepJobInformation job) {
+		HashMap<String, String> returnMap = new HashMap<String, String>();
+		String resourceName = JobEngineConstants.JOBINFO_PROPERTIES; 
+		ClassLoader loader = Thread.currentThread().getContextClassLoader();
+		Properties props = new Properties();
+		try {
+			InputStream resourceStream = loader.getResourceAsStream(resourceName);
+			props.load(resourceStream);
+			String outputParameters = (String) props.get(job.getJobType()+"_output_parameters");
+			String data = job.getData();
+			if(outputParameters!=null){
+				String[] outputParamsList = outputParameters.split(",");
+				for (String outParam : outputParamsList) {
+					HashMap paramMap = new Gson().fromJson(data, HashMap.class);
+					if(outParam.indexOf("/")>0){
+						fillNestedMap(returnMap,paramMap,outParam);
+					}else{
+						if(paramMap.get(outParam)!=null)
+					returnMap.put(outParam, paramMap.get(outParam)+"");
+					}
+				}
+			}
+			
+			
+		} catch (Exception e) {
+		}
+		return returnMap;
+	}
+
+	private void fillNestedMap(HashMap<String, String> returnMap, HashMap paramMap, String outParam) {
+		Map localParamMap = new LinkedTreeMap();
+		String[] outputParamsList = outParam.split("/");
+		String childOutParam = outputParamsList[0];
+		String childOutParamValue=null;
+		localParamMap = (Map)paramMap.get(outputParamsList[0]);
+			for (int outParamIndex = 1; outParamIndex<outputParamsList.length;outParamIndex++) {
+				childOutParam = outputParamsList[outParamIndex];
+				
+				if(outParamIndex == outputParamsList.length-1)
+					childOutParamValue = localParamMap.get(childOutParam)+"";
+				else
+					localParamMap = 	(Map) localParamMap.get(childOutParam);
+			}
+			if(childOutParamValue!=null)
+				returnMap.put(childOutParam, childOutParamValue);
+		
+	}
+
+	/**
+	 * check if user is super admin
+	 * TODO: Should be a util method in security context
+	 * @param userId
+	 * @return
+	 */
+	private boolean isGlobalAdmin(Long userId) {
+		String isUserGlobalAdmin ="N";
+		isUserGlobalAdmin =jobsRepository.isUserGlobalAdmin(userId);
+		boolean isGlobalAdmin="Y".equalsIgnoreCase(isUserGlobalAdmin);
+		return isGlobalAdmin;
+	}
+
+	
+
+
+
+	
+
+
+	public ArrayList<Job> listSubJosbs(SecurityContext securityContext, int jobId) {
+		ArrayList<Job> resultList =new ArrayList<Job>();
+		List<GtrepJobInformation> jobsList = (List<GtrepJobInformation>) jobrepo.findByParentId(jobId);
+		for (GtrepJobInformation jobInformation : jobsList) {
+			Job jobResult = fillResultObject(jobInformation);
+			resultList.add(jobResult);
+		}
+	
+		return resultList;
+	}
+
+	public ArrayList<Job> getJobStatusUsingJobName(SecurityContext securityContext, String jobName) {
+		ArrayList<Job> resultList =new ArrayList<Job>();
+		List<GtrepJobInformation> jobsList;
+		try{
+			jobsList = jobrepo.findByJobName(jobName);
+		}catch(NoResultException e){
+			return null;
+		}
+		if(jobsList==null)
+			return null;
+		
+		
+		for (GtrepJobInformation job : jobsList) {
+			
+		
+		
+		GtrepProject projobj = (GtrepProject) projectrepo.findByProjId(Long.parseLong(job.getProjectId()+""));
+		Job result = fillResultObject(job);
+
+		if (projobj != null)
+			result.setProjectName(projobj.getProjName());
+
+		if (job.getJobType() != null && job.getJobType().equalsIgnoreCase(JobEngineConstants.GROUP_JOB)) {
+			List<GtrepJobInformation> childJobList = (List<GtrepJobInformation>) jobrepo.findByParentId(job.getJobId());
+			for (GtrepJobInformation jobInformation : childJobList) {
+				Job jobResult = fillResultObject(jobInformation);
+				result.getJobs().add(jobResult);
+			}
+		}
+		resultList.add(result);
+		}
+		return resultList;
+	
+	}
+
+	public Page<Job> getJobStatusUsingJobType(SecurityContext securityContext, String jobType,Pageable pageData) {
+		List<Job> resultList =new ArrayList<Job>();
+		Page<GtrepJobInformation> jobsList;
+		Page<Job> jobs;
+		try{
+			jobsList = jobrepo.findByJobType(jobType,pageData);
+		}catch(NoResultException e){
+			return null;
+		}
+		if(jobsList==null)
+			return null;
+		
+		
+		for (GtrepJobInformation job : jobsList) {
+			
+		
+		
+		GtrepProject projobj = (GtrepProject) projectrepo.findByProjId(Long.parseLong(job.getProjectId()+""));
+		Job result = fillResultObject(job);
+		if (projobj != null)
+			result.setProjectName(projobj.getProjName());
+
+		if (job.getJobType() != null && job.getJobType().equalsIgnoreCase(JobEngineConstants.GROUP_JOB)) {
+			List<GtrepJobInformation> childJobList = (List<GtrepJobInformation>) jobrepo.findByParentId(job.getJobId());
+			for (GtrepJobInformation jobInformation : childJobList) {
+				Job jobResult = fillResultObject(jobInformation);
+				result.getJobs().add(jobResult);
+			}
+		}
+		resultList.add(result);
+		}
+		
+		
+		jobs = new PageImpl(resultList,pageData,jobsList.getTotalElements());
+		return jobs;
+	
+	}
+
+	// Update status of a job in gtrep_job_info; update status of its group parent if required; and trigger any next job in its group. 
+	public JobResponse updateJobStatus(long jobId, JobStatusRequest jobStatus) {
+		
+		try {
+
+			GtrepJobInformation jobInfo = (GtrepJobInformation) jobrepo.findByJobId(jobId);
+			if (jobInfo==null) {
+				log.error("Job with id " + jobId + " does not exist in Job Engine");
+				return new JobResponse("Failed to find request with id " + jobId, -1);
+			}
+			Timestamp now = new Timestamp(new Date().getTime());
+			jobInfo.setStatus(jobStatus.getStatus());
+			jobInfo.setStatusMessage(jobStatus.getStatusMessage());
+			//Save the artifact location 			
+			jobInfo.setArtifactLocation(jobStatus.getArtifactLocation() != null ? jobStatus.getArtifactLocation() : jobInfo.getArtifactLocation());
+			jobInfo.setEndTime(now);
+			jobrepo.save(jobInfo);
+			
+			// job is part of a group job,
+			if (jobInfo.getParentId() > 0) {
+				
+				GtrepJobInformation groupObj = (GtrepJobInformation) jobrepo.findByJobId(jobInfo.getParentId());
+				if (groupObj == null) {
+					log.error("Parent group with id " + jobInfo.getParentId() + " of Job with id " + jobId + " does not exist");
+					return new JobResponse("Failed to find parent of request with id " + jobId, -1);
+				}
+				if (jobInfo.getStatus().equalsIgnoreCase(JobStatus.FAILED)) {
+					// job has failed, marks its parent group as failed too
+					groupObj.setStatus(JobStatus.FAILED);
+					groupObj.setEndTime(now);
+					jobMailerUtil.sendJobEmail(JobEngineConstants.GROUP_JOB,groupObj);
+					jobrepo.save(groupObj);				
+					return new JobResponse("Updated status of request with id " + jobId + " and of its parent group with id " + jobInfo.getParentId() + " to FAILED", jobId);
+				}
+				else if (jobInfo.getStatus().equalsIgnoreCase(JobStatus.COMPLETED) && jobInfo.getNextJobId() == 0) {
+					// job has completed and it is the last job in its parent group
+					groupObj.setStatus(JobStatus.COMPLETED);
+					groupObj.setEndTime(now);
+					jobMailerUtil.sendJobEmail(JobEngineConstants.GROUP_JOB,groupObj);
+					jobrepo.save(groupObj);
+					return new JobResponse("Updated status of request with id " + jobId + " and of its parent group with id " + jobInfo.getParentId() + " to COMPLETED", jobId);
+				}
+				else if (jobInfo.getNextJobId()>0) {
+					try {
+						GtrepJobInformation nextJobInfo = jobrepo.findByJobId(jobInfo.getNextJobId());
+						SimpleTriggerImpl trig = (SimpleTriggerImpl) scheduler.getTrigger(new TriggerKey(nextJobInfo.getJobName() + "_&&_&&_" + nextJobInfo.getJobId()));
+						trig.setStartTime(new Date(System.currentTimeMillis()));
+						log.debug("Set trigger for next job in group for request with id " + jobId + ", " + trig.getJobName());
+						scheduler.rescheduleJob(trig.getKey(), trig);
+					} catch (SchedulerException schedEx) {
+						log.error("Failed to set trigger for next job in group for request with id " + jobId + ", " + schedEx.getMessage());
+						return new JobResponse("Failed to set trigger for next job in group for request with id " + jobId + ", " + schedEx.getMessage(), -1);
+					}
+				}
+			}
+			return new JobResponse("Updated status of request with id " + jobId + " to " + jobInfo.getStatus(), jobId);
+		}
+		catch (Exception ex) {
+			log.error("Failed to update status of request " + jobId + ", " + ex.getMessage());
+			return new JobResponse("Failed to update status of request " + jobId + ", " + ex.getMessage(), -1);
+		}
+	}
+
+	public Iterable<ProjectInfo> listProjets(SecurityContext securityContext, String origin) {
+		List<Long> jobsList = (List<Long>) jobrepo.findDistinctByProjectId(origin);
+		List<ProjectInfo> projectList = new ArrayList<ProjectInfo>();
+		
+			for (Long projectId : jobsList) {
+				try{
+				RestTemplate restTemplate = new RestTemplate();
+				final TDMClientHttpRequestFactory clientHttpRequestFactory =
+		                new TDMClientHttpRequestFactory();
+				restTemplate.setRequestFactory(clientHttpRequestFactory);
+
+
+				String url = jobEngineServiceConfiguration.getTdmProjectServiceEndpoint()+"/api/ca/v1/projects/"+projectId;
+
+				HttpHeaders headers = new HttpHeaders();
+				headers.set("Authorization", "Bearer " + securityContext.getUserToken());
+
+				HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+ 
+				ResponseEntity<ProjectInfo> response = restTemplate
+						.exchange(
+								url,
+								HttpMethod.GET, entity, ProjectInfo.class);
+				
+				ProjectInfo projectInfo = (ProjectInfo)response.getBody();
+				projectList.add(projectInfo);
+				}catch(Exception e){
+					log.error("Failed to fetch project with " + projectId + "exception message is "+e.getMessage());
+				}
+			}
+		
+			
+		return projectList;
+	}
+	
+}

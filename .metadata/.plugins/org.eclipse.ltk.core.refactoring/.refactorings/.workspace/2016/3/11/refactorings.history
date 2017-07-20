@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename Java project &apos;checkpoint Level6_Inversion&apos; to &apos;Array_checkpoint Level6_Inversion&apos;&#x0D;&#x0A;- Original element: &apos;checkpoint Level6_Inversion&apos;&#x0D;&#x0A;- Renamed element: &apos;checkpoint Level6_Inversion&apos;&#x0D;&#x0A;- Update references to refactored element" description="Rename Java project &apos;checkpoint Level6_Inversion&apos;" flags="7" id="org.eclipse.jdt.ui.rename.java.project" input="=checkpoint Level6_Inversion" name="Array_checkpoint Level6_Inversion" references="true" stamp="1457776949803" version="1.0"/>
+</session>

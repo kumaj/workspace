@@ -1,0 +1,18 @@
+/**
+ * https://www.tutorialspoint.com/java8/java8_lambda_expressions.htm
+ * @author kumaj04
+ *
+ */
+public class LambdaExp {
+	 interface MathOperation {
+	      int operation(int a, int b);
+	 }
+	 
+	 private int operate(int a, int b, MathOperation mathOperation){
+	      return mathOperation.operation(a, b);
+	 }
+	 
+	 public static void main(String[] args) {
+		
+	}
+}

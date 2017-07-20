@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/IB_ longest common prefix string amongst an array of strings/src/LongestCommonPrefix/LongestCommonPrefix.java"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="1"/>
+</listAttribute>
+<stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="LongestCommonPrefix.Solution"/>
+<stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="IB_ longest common prefix string amongst an array of strings"/>
+</launchConfiguration>

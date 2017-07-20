@@ -1,0 +1,18 @@
+
+/**
+ * Driver class
+ * @author kumaj04
+ *
+ */
+public class Solution {
+
+	public static void main(String[] args) {
+		//Initialise 2 branches
+		BankBranch branch1 = new BankBranch("1", "Hyd");
+		BankBranch branch2 = new BankBranch("2", "Patna");
+		
+		//Initilase bank employee
+		BankEmployee emp1 = new BankEmployee("Ajit", "1");
+		BankEmployee emp2 = new BankEmployee("Kumar", "2");
+	}
+}

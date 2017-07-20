@@ -1,0 +1,44 @@
+package bank;
+
+import java.util.List;
+
+/**
+ * There are 3 categories of bank - Planning, Investment and consumer.
+ * Each bank has a manager and set of employees. Branches are considered as subdivision of consumer division.
+ * Each account holder has been assigned to have a personal banker
+ * @author kumaj04
+ *
+ */
+public abstract class Bank {
+	private String managerName;
+	private List<BankEmployee> employeeList;
+	
+
+	/**
+	 * @return the managerName
+	 */
+	public String getManagerName() {
+		return managerName;
+	}
+
+	/**
+	 * @param managerName the managerName to set
+	 */
+	public void setManagerName(String managerName) {
+		this.managerName = managerName;
+	}
+
+	/**
+	 * @return the employeeList
+	 */
+	public List<BankEmployee> getEmployeeList() {
+		return employeeList;
+	}
+
+	/**
+	 * @param employeeList the employeeList to set
+	 */
+	public void setEmployeeList(List<BankEmployee> employeeList) {
+		this.employeeList = employeeList;
+	}
+}

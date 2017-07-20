@@ -1,0 +1,14 @@
+import BankBranch;
+
+/**
+ * Driver class
+ * @author kumaj04
+ *
+ */
+public class Solution {
+
+	public static void main(String[] args) {
+		//Initialise 2 branches
+		BankBranch branch1 = new BankBranch("1", "Hyd");
+	}
+}

@@ -1,0 +1,18 @@
+
+public class Permute {
+	public void permuteWord(String str) {
+		int len = str.length();
+		permute(str, 0, len);
+	}
+
+	private void permute(String str, int start, int end) {
+		if(start>=end)
+			System.out.println(str);
+	}
+}
+
+class Solution {
+	public static void main(String[] args) {
+		
+	}
+}
